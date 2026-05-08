@@ -1,0 +1,204 @@
+---
+import Base from "../layouts/Base.astro";
+
+type Publication = {
+  year: string;
+  title: string;
+  authors: string;
+  venue: string;
+  badges?: string[];
+};
+
+const PI_NAME = "Hyeongmin Lee";
+
+const publications: Publication[] = [
+  {
+    year: "2025",
+    title:
+      "Temporal Smoothness-Aware Rate-Distortion Optimized 4D Gaussian Splatting",
+    authors: "Hyeongmin Lee, Kyungjune Baek†",
+    venue: "NeurIPS 2025",
+  },
+  {
+    year: "2023",
+    title: "Exploring Discontinuity for Video Frame Interpolation",
+    authors: "Sangjin Lee*, Hyeongmin Lee*, Chajin Shin, Sangyoun Lee†",
+    venue: "CVPR 2023",
+    badges: ["Highlight · Top 10%"],
+  },
+  {
+    year: "2023",
+    title:
+      "A Nonlinear, Regularized, and Data-Independent Modulation for Continuously Interactive Image Processing Network",
+    authors:
+      "Hyeongmin Lee, Taeoh Kim, Hanbin Son, Sangwook Baek, Minsu Cheon, Sangyoun Lee†",
+    venue: "IJCV 2023",
+  },
+  {
+    year: "2022",
+    title:
+      "Expanded Adaptive Scaling Normalization for End-to-End Image Compression",
+    authors:
+      "Chajin Shin, Hyeongmin Lee, Hanbin Son, Sangjin Lee, Dogyoon Lee, Sangyoun Lee†",
+    venue: "ECCV 2022",
+  },
+  {
+    year: "2022",
+    title:
+      "Enhanced Standard Compatible Image Compression Framework based on Auxiliary Codec Networks",
+    authors: "Hanbin Son, Taeoh Kim, Hyeongmin Lee, Sangyoun Lee†",
+    venue: "TIP 2022",
+  },
+  {
+    year: "2021",
+    title: "Regularization Strategy for Point Cloud via Rigidly Mixed Sample",
+    authors:
+      "Dogyoon Lee, Jaeha Lee, Junhyeop Lee, Hyeongmin Lee, Minhyeok Lee, Sungmin Woo, Sangyoun Lee†",
+    venue: "CVPR 2021",
+  },
+  {
+    year: "2020",
+    title:
+      "Learning Temporally Invariant and Localizable Features via Data Augmentation for Video Recognition",
+    authors:
+      "Taeoh Kim*, Hyeongmin Lee*, MyeongAh Cho*, Hoseong Lee, Dong-heon Cho, Sangyoun Lee†",
+    venue: "ECCVW 2020",
+    badges: ["Oral"],
+  },
+  {
+    year: "2020",
+    title:
+      "AdaCoF: Adaptive Collaboration of Flows for Video Frame Interpolation",
+    authors:
+      "Hyeongmin Lee, Taeoh Kim, Tae-young Chung, Daehyun Pak, Yuseok Ban, Sangyoun Lee†",
+    venue: "CVPR 2020",
+  },
+  {
+    year: "2020",
+    title:
+      "Extrapolative-Interpolative Cycle-Consistency Learning for Video Frame Extrapolation",
+    authors: "Sangjin Lee, Hyeongmin Lee, Taeoh Kim, Sangyoun Lee†",
+    venue: "ICIP 2020",
+  },
+  {
+    year: "2019",
+    title: "N-RPN: Hard Example Learning for Region Proposal Networks",
+    authors: "MyeongAh Cho, Tae-young Chung, Hyeongmin Lee, Sangyoun Lee†",
+    venue: "ICIP 2019",
+  },
+  {
+    year: "2019",
+    title:
+      "SF-CNN: A Fast Compression Artifacts Removal via Spatial-to-Frequency Convolutional Neural Networks",
+    authors: "Taeoh Kim, Hyeongmin Lee, Hanbin Son, Sangyoun Lee†",
+    venue: "ICIP 2019",
+  },
+  {
+    year: "2018",
+    title:
+      "CollaboNet: Collaboration of Generative Models by Unsupervised Classification",
+    authors: "Hyeongmin Lee, Taeoh Kim, Eungyeol Song, Sangyoun Lee†",
+    venue: "ICIP 2018",
+  },
+  {
+    year: "2018",
+    title:
+      "AHD: Thermal Image-based Adaptive Hand Detection for Enhanced Tracking System",
+    authors: "Eungyeol Song, Hyeongmin Lee, Jaesung Choi, Sangyoun Lee†",
+    venue: "IEEE Access 2018",
+  },
+];
+
+const grouped = publications.reduce<Record<string, Publication[]>>(
+  (acc, p) => {
+    (acc[p.year] ??= []).push(p);
+    return acc;
+  },
+  {},
+);
+const years = Object.keys(grouped).sort().reverse();
+
+type AuthorToken = {
+  name: string;
+  equal: boolean;
+  corr: boolean;
+  isPI: boolean;
+};
+const parseAuthors = (str: string): AuthorToken[] =>
+  str.split(",").map((raw) => {
+    let token = raw.trim();
+    let equal = false;
+    let corr = false;
+    while (token.endsWith("*") || token.endsWith("†")) {
+      if (token.endsWith("†")) corr = true;
+      if (token.endsWith("*")) equal = true;
+      token = token.slice(0, -1).trim();
+    }
+    return { name: token, equal, corr, isPI: token === PI_NAME };
+  });
+---
+
+<Base
+  title="Publications — ViViD Lab"
+  description="Peer-reviewed publications and technical reports from ViViD Lab and the PI's prior work."
+>
+  <header class="mx-auto max-w-6xl px-6 lg:px-8 pt-16 lg:pt-20 pb-12 lg:pb-16">
+    <p
+      class="text-[11px] uppercase tracking-[0.22em] text-cyan-deep font-semibold"
+    >
+      Vision and Video Dynamics Lab · Publications
+    </p>
+    <h1
+      class="mt-5 font-display text-[2rem] lg:text-[2.5rem] leading-[1.12] tracking-tight font-semibold text-ink"
+    >
+      Publications
+    </h1>
+  </header>
+
+  <div class="mx-auto max-w-6xl px-6 lg:px-8 pb-24">
+    <div class="space-y-12 lg:space-y-16">
+      {
+        years.map((y) => (
+          <div class="grid grid-cols-[4rem_1fr] lg:grid-cols-[6rem_1fr] gap-4 lg:gap-10 items-baseline">
+            <div class="font-display text-2xl text-ink-mute font-semibold">
+              {y}
+            </div>
+            <ul class="space-y-7">
+              {grouped[y].map((pub) => (
+                <li>
+                  <h3 class="font-display text-base lg:text-[17px] font-semibold text-ink leading-snug tracking-tight">
+                    {pub.title}
+                  </h3>
+                  <p class="mt-1.5 text-sm text-ink-soft leading-relaxed">
+                    {parseAuthors(pub.authors).map((a, i) => (
+                      <>
+                        {i > 0 && <span>, </span>}
+                        <span class={a.isPI ? "font-semibold text-ink" : ""}>
+                          {a.name}
+                          {a.equal && "*"}
+                          {a.corr && "†"}
+                        </span>
+                      </>
+                    ))}
+                  </p>
+                  <div class="mt-2 flex items-center gap-2 flex-wrap text-xs">
+                    <span class="text-ink-mute">{pub.venue}</span>
+                    {pub.badges?.map((b) => (
+                      <span class="px-1.5 py-0.5 rounded bg-navy-soft text-navy text-[10px] uppercase tracking-wider font-semibold">
+                        {b}
+                      </span>
+                    ))}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="mt-16 text-xs text-ink-mute">
+      * indicates equal contribution. † indicates corresponding author.
+    </p>
+  </div>
+</Base>

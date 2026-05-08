@@ -1,0 +1,222 @@
+---
+import Base from "../layouts/Base.astro";
+import { Image } from "astro:assets";
+import hyeongminPhoto from "../assets/people/hyeongmin.jpeg";
+
+const links = [
+  {
+    label: "hyeongmin.lee@seoultech.ac.kr",
+    href: "mailto:hyeongmin.lee@seoultech.ac.kr",
+    external: false,
+  },
+  {
+    label: "Google Scholar",
+    href: "https://scholar.google.co.kr/citations?user=eEB3K6gAAAAJ",
+    external: true,
+  },
+  {
+    label: "GitHub",
+    href: "https://github.com/HyeongminLEE",
+    external: true,
+  },
+  {
+    label: "Personal website",
+    href: "https://hyeongminlee.github.io",
+    external: true,
+  },
+];
+
+const education = [
+  {
+    degree: "Ph.D., Electrical and Electronic Engineering",
+    institution: "Yonsei University",
+    period: "2023",
+  },
+  {
+    degree: "B.S., Electrical and Electronic Engineering",
+    institution: "Yonsei University",
+    period: "2018",
+  },
+];
+
+const experience = [
+  {
+    role: "Assistant Professor",
+    org: "Seoul National University of Science and Technology",
+    period: "Mar 2026 – Present",
+  },
+  {
+    role: "ML Research Scientist",
+    org: "Twelve Labs",
+    period: "Jul 2023 – Feb 2026",
+  },
+  {
+    role: "Research Intern",
+    org: "Adobe Research",
+    period: "May 2021 – Nov 2021",
+  },
+];
+---
+
+<Base
+  title="People — ViViD Lab"
+  description="The people behind ViViD Lab — Vision and Video Dynamics Lab at SeoulTech."
+>
+  <header class="mx-auto max-w-6xl px-6 lg:px-8 pt-16 lg:pt-20 pb-12 lg:pb-16">
+    <p
+      class="text-[11px] uppercase tracking-[0.22em] text-cyan-deep font-semibold"
+    >
+      Vision and Video Dynamics Lab · People
+    </p>
+    <h1
+      class="mt-5 font-display text-[2rem] lg:text-[2.5rem] leading-[1.12] tracking-tight font-semibold text-ink max-w-3xl"
+    >
+      The people behind ViViD Lab.
+    </h1>
+  </header>
+
+  <div class="mx-auto max-w-6xl px-6 lg:px-8 pb-24">
+    <div class="space-y-16 lg:space-y-24">
+
+      <!-- Principal Investigator -->
+      <section class="grid grid-cols-12 gap-6 lg:gap-12">
+        <header class="col-span-12 lg:col-span-4">
+          <div
+            class="font-display text-[11px] tracking-[0.22em] text-cyan-deep font-semibold uppercase"
+          >
+            Principal Investigator
+          </div>
+
+          <Image
+            src={hyeongminPhoto}
+            alt="Hyeongmin Lee"
+            width={384}
+            class="mt-5 w-44 aspect-[3/4] rounded-2xl object-cover border border-line"
+          />
+
+          <h2
+            class="mt-5 font-display text-2xl lg:text-[1.75rem] tracking-tight font-semibold text-ink leading-tight"
+          >
+            Hyeongmin Lee
+          </h2>
+          <p class="mt-1 text-sm text-ink-soft">Assistant Professor</p>
+          <p class="text-sm text-ink-soft">Department of Electronic Engineering</p>
+          <p class="text-sm text-ink-soft">
+            Seoul National University of Science and Technology
+          </p>
+
+          <ul class="mt-5 space-y-2 text-sm">
+            {
+              links.map((l) => (
+                <li>
+                  <a
+                    href={l.href}
+                    class="inline-flex items-center gap-1 text-cyan-deep underline underline-offset-4 decoration-cyan-deep/40 hover:decoration-cyan-deep hover:text-cyan transition-colors"
+                  >
+                    {l.label}
+                    {l.external && <span aria-hidden="true">↗</span>}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </header>
+
+        <div class="col-span-12 lg:col-span-8 space-y-7">
+          <div>
+            <h3
+              class="text-[10px] uppercase tracking-[0.18em] text-ink-mute font-semibold"
+            >
+              About
+            </h3>
+            <p class="mt-3 text-[15px] leading-relaxed text-ink">
+              Hyeongmin Lee is an Assistant Professor in the Department of
+              Electronic Engineering at Seoul National University of Science and
+              Technology, where he founded and leads ViViD Lab. His research
+              investigates the dynamics of visual data — from frame-level motion
+              to world-scale simulation. He received his Ph.D. in Electrical
+              and Electronic Engineering from Yonsei University in 2023, with
+              industry research experience at Twelve Labs and Adobe Research.
+            </p>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-7 lg:gap-10">
+            <div>
+              <h3
+                class="text-[10px] uppercase tracking-[0.18em] text-ink-mute font-semibold"
+              >
+                Education
+              </h3>
+              <ul class="mt-3 space-y-3 text-sm">
+                {
+                  education.map((e) => (
+                    <li class="leading-snug">
+                      <div class="text-ink">{e.degree}</div>
+                      <div class="text-xs text-ink-mute mt-0.5">
+                        {e.institution} · {e.period}
+                      </div>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+
+            <div>
+              <h3
+                class="text-[10px] uppercase tracking-[0.18em] text-ink-mute font-semibold"
+              >
+                Experience
+              </h3>
+              <ul class="mt-3 space-y-3 text-sm">
+                {
+                  experience.map((x) => (
+                    <li class="leading-snug">
+                      <div class="text-ink">{x.role}</div>
+                      <div class="text-xs text-ink-mute mt-0.5">
+                        {x.org} · {x.period}
+                      </div>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="border-t border-line"></div>
+
+      <!-- Students -->
+      <section class="grid grid-cols-12 gap-6 lg:gap-12">
+        <header class="col-span-12 lg:col-span-4">
+          <div
+            class="font-display text-[11px] tracking-[0.22em] text-cyan-deep font-semibold uppercase"
+          >
+            Students
+          </div>
+          <h2
+            class="mt-2 font-display text-2xl lg:text-[1.75rem] tracking-tight font-semibold text-ink leading-tight"
+          >
+            Recruiting
+          </h2>
+          <p class="mt-2 text-sm text-ink-soft">Founding cohort, 2026.</p>
+        </header>
+
+        <div class="col-span-12 lg:col-span-8">
+          <p class="text-[15px] leading-relaxed text-ink">
+            We're actively recruiting motivated students at all levels —
+            undergraduate interns, M.S., and Ph.D. — interested in any of our
+            research pillars.
+          </p>
+          <a
+            href="/join"
+            class="inline-flex items-center mt-5 px-5 py-2.5 rounded-full bg-navy text-paper hover:bg-navy-deep transition-colors font-medium text-sm"
+          >
+            Join us →
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</Base>

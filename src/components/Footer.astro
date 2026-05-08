@@ -1,0 +1,39 @@
+---
+import Wordmark from "./Wordmark.astro";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-line mt-16">
+  <div class="mx-auto max-w-6xl px-6 lg:px-8 py-10 text-sm text-ink-soft">
+    <div
+      class="flex flex-col md:flex-row md:items-start md:justify-between gap-6"
+    >
+      <div>
+        <Wordmark class="text-base" />
+        <p class="mt-2 leading-relaxed">
+          Vision and Video Dynamics Lab<br />
+          Department of Electronic Engineering · Seoul National University of
+          Science and Technology
+        </p>
+        <p class="mt-3 text-xs text-ink-mute">
+          © {year} ViViD Lab. All rights reserved.
+        </p>
+      </div>
+      <div class="flex items-center gap-5">
+        <a
+          href="mailto:hyeongmin.lee@seoultech.ac.kr"
+          class="hover:text-navy transition-colors">Email</a
+        >
+        <a
+          href="https://scholar.google.co.kr/citations?user=eEB3K6gAAAAJ"
+          class="hover:text-navy transition-colors">Scholar</a
+        >
+        <a
+          href="https://github.com/lab-vivid"
+          class="hover:text-navy transition-colors">GitHub</a
+        >
+      </div>
+    </div>
+  </div>
+</footer>

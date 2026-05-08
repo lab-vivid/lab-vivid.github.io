@@ -1,0 +1,44 @@
+---
+import Wordmark from "./Wordmark.astro";
+
+const nav = [
+  { href: "/", label: "Home" },
+  { href: "/research", label: "Research" },
+  { href: "/people", label: "People" },
+  { href: "/publications", label: "Publications" },
+  { href: "/news", label: "News" },
+  { href: "/join", label: "Join Us" },
+];
+const path = Astro.url.pathname;
+---
+
+<header
+  class="sticky top-0 z-40 backdrop-blur-md bg-paper/85 border-b border-line"
+>
+  <div
+    class="mx-auto max-w-6xl px-6 lg:px-8 h-20 flex items-center justify-between"
+  >
+    <a
+      href="/"
+      class="flex items-center hover:opacity-80 transition-opacity"
+      aria-label="ViViD Lab home"
+    >
+      <Wordmark class="text-2xl" />
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-[15px]">
+      {
+        nav.map(({ href, label }) => {
+          const active = path === href || path.startsWith(href + "/");
+          return (
+            <a
+              href={href}
+              class={`transition-colors ${active ? "text-navy font-medium" : "text-ink-soft hover:text-ink"}`}
+            >
+              {label}
+            </a>
+          );
+        })
+      }
+    </nav>
+  </div>
+</header>

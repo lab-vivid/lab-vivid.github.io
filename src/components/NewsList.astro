@@ -1,0 +1,56 @@
+---
+import { news as defaultNews, type NewsItem } from "../data/news";
+
+interface Props {
+  items?: NewsItem[];
+}
+
+const { items = defaultNews } = Astro.props;
+
+const grouped = items.reduce<Record<string, NewsItem[]>>((acc, item) => {
+  const y = item.date.slice(0, 4);
+  (acc[y] ??= []).push(item);
+  return acc;
+}, {});
+const years = Object.keys(grouped).sort().reverse();
+
+const categoryClass = (c: NewsItem["category"]) => {
+  switch (c) {
+    case "Paper":
+      return "bg-navy-soft text-navy";
+    case "Award":
+      return "bg-amber-100 text-amber-900";
+    case "Talk":
+      return "bg-violet-100 text-violet-900";
+    case "Lab":
+      return "bg-paper-soft text-ink-soft border border-line";
+  }
+};
+---
+
+<div class="space-y-8">
+  {
+    years.map((y) => (
+      <div class="grid grid-cols-[4rem_1fr] lg:grid-cols-[6rem_1fr] gap-4 lg:gap-10 items-baseline">
+        <div class="font-display text-2xl text-ink-mute font-semibold">
+          {y}
+        </div>
+        <ul class="divide-y divide-line">
+          {grouped[y].map((item) => (
+            <li class="py-3.5 flex flex-col sm:flex-row sm:items-baseline gap-1.5 sm:gap-4">
+              <time class="text-xs text-ink-mute tabular-nums whitespace-nowrap font-mono w-20">
+                {item.date}
+              </time>
+              <span
+                class={`text-[10px] uppercase tracking-wider px-2 py-0.5 rounded font-semibold whitespace-nowrap self-start ${categoryClass(item.category)}`}
+              >
+                {item.category}
+              </span>
+              <p class="text-sm text-ink leading-relaxed">{item.text}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))
+  }
+</div>

@@ -1,0 +1,106 @@
+---
+type Work = {
+  title: string;
+  venue: string;
+  highlight?: string;
+};
+
+interface Props {
+  number: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  topics: string[];
+  works?: Work[];
+  direction?: string;
+  thread: string;
+}
+
+const {
+  number,
+  title,
+  subtitle,
+  description,
+  topics,
+  works,
+  direction,
+  thread,
+} = Astro.props;
+---
+
+<section class="grid grid-cols-12 gap-6 lg:gap-12">
+  <header class="col-span-12 lg:col-span-4">
+    <div
+      class="font-display text-[11px] tracking-[0.22em] text-cyan-deep font-semibold uppercase"
+    >
+      Pillar {number}
+    </div>
+    <h2
+      class="mt-2 font-display text-2xl lg:text-[1.75rem] tracking-tight font-semibold text-ink leading-tight"
+    >
+      {title}
+    </h2>
+    <p class="mt-2 text-sm text-ink-soft">{subtitle}</p>
+  </header>
+
+  <div class="col-span-12 lg:col-span-8 space-y-7">
+    <p class="text-[15px] leading-relaxed text-ink">{description}</p>
+
+    <div class="grid sm:grid-cols-2 gap-7 lg:gap-10">
+      <div>
+        <h3
+          class="text-[10px] uppercase tracking-[0.18em] text-ink-mute font-semibold"
+        >
+          Topics
+        </h3>
+        <ul class="mt-3 space-y-1.5 text-sm text-ink">
+          {
+            topics.map((t) => (
+              <li class="flex items-start gap-2">
+                <span class="text-cyan mt-1.5 h-1 w-1 rounded-full bg-current shrink-0" />
+                <span>{t}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h3
+          class="text-[10px] uppercase tracking-[0.18em] text-ink-mute font-semibold"
+        >
+          {works ? "Representative Work" : "Current Direction"}
+        </h3>
+        {
+          works ? (
+            <ul class="mt-3 space-y-3 text-sm">
+              {works.map((w) => (
+                <li class="leading-snug">
+                  <div class="text-ink">{w.title}</div>
+                  <div class="text-xs text-ink-mute mt-0.5">
+                    <span>{w.venue}</span>
+                    {w.highlight && (
+                      <span class="ml-1.5 inline-block px-1.5 py-0.5 rounded text-[10px] uppercase tracking-wider bg-navy-soft text-navy font-semibold">
+                        {w.highlight}
+                      </span>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p class="mt-3 text-sm text-ink leading-relaxed">{direction}</p>
+          )
+        }
+      </div>
+    </div>
+
+    <p
+      class="text-sm italic text-ink-soft border-l-2 border-cyan pl-4 leading-relaxed"
+    >
+      <span class="not-italic font-semibold text-ink uppercase text-[10px] tracking-[0.18em] mr-2"
+        >Connecting thread</span
+      >{thread}
+    </p>
+  </div>
+</section>

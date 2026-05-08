@@ -1,0 +1,81 @@
+---
+import PillarCard from "./PillarCard.astro";
+
+const pillars = [
+  {
+    title: "Video Processing",
+    subtitle: "Low-level video enhancement",
+    topics: [
+      "Frame Interpolation",
+      "Super-Resolution",
+      "Stabilization",
+      "Compression",
+    ],
+  },
+  {
+    title: "Video Understanding",
+    subtitle: "Temporal semantics & representation",
+    topics: [
+      "Video Foundation Models",
+      "Action Recognition",
+      "Retrieval & QA",
+    ],
+  },
+  {
+    title: "3D / 4D Vision",
+    subtitle: "3D scene reconstruction & rendering",
+    topics: ["NeRF", "Gaussian Splatting", "Novel View Synthesis"],
+  },
+  {
+    title: "World Models",
+    subtitle: "Generative simulation of the visual world",
+    topics: [
+      "World Foundation Models",
+      "Action-Conditioned Video Generation",
+      "Physics-Aware Generation",
+      "Embodied AI",
+    ],
+  },
+];
+---
+
+<section class="mx-auto max-w-6xl px-6 lg:px-8 pt-16 lg:pt-20 pb-16 lg:pb-20">
+  <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+    <div class="lg:col-span-5">
+      <p
+        class="text-[11px] uppercase tracking-[0.22em] text-cyan-deep font-semibold"
+      >
+        Vision and Video Dynamics Lab
+      </p>
+      <h1
+        class="mt-5 font-display text-[1.75rem] lg:text-[2rem] leading-[1.2] tracking-tight text-ink font-semibold"
+      >
+        We study how the visual world changes over time — and build systems
+        that <span class="text-navy">perceive, reconstruct, and predict</span>
+        that change.
+      </h1>
+      <p class="mt-6 text-[15px] text-ink-soft leading-relaxed max-w-prose">
+        From pixel-level motion to world-scale simulation, ViViD Lab pursues a
+        single research agenda — temporal dynamics — at increasing levels of
+        abstraction.
+      </p>
+      <div class="mt-8 flex items-center gap-3 text-sm">
+        <a
+          href="/research"
+          class="px-5 py-2.5 rounded-full bg-navy text-paper hover:bg-navy-deep transition-colors font-medium"
+        >
+          Explore research →
+        </a>
+        <a
+          href="/join"
+          class="px-5 py-2.5 rounded-full border border-line text-ink hover:border-navy hover:text-navy transition-colors font-medium"
+        >
+          Join us
+        </a>
+      </div>
+    </div>
+    <div class="lg:col-span-7 grid sm:grid-cols-2 gap-3.5">
+      {pillars.map((p) => <PillarCard {...p} />)}
+    </div>
+  </div>
+</section>

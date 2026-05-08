@@ -1,0 +1,26 @@
+---
+import Base from "../layouts/Base.astro";
+import NewsList from "../components/NewsList.astro";
+---
+
+<Base
+  title="News — ViViD Lab"
+  description="Recent news, paper acceptances, awards, and announcements from ViViD Lab."
+>
+  <header class="mx-auto max-w-6xl px-6 lg:px-8 pt-16 lg:pt-20 pb-12 lg:pb-16">
+    <p
+      class="text-[11px] uppercase tracking-[0.22em] text-cyan-deep font-semibold"
+    >
+      Vision and Video Dynamics Lab · News
+    </p>
+    <h1
+      class="mt-5 font-display text-[2rem] lg:text-[2.5rem] leading-[1.12] tracking-tight font-semibold text-ink"
+    >
+      News
+    </h1>
+  </header>
+
+  <div class="mx-auto max-w-6xl px-6 lg:px-8 pb-24">
+    <NewsList />
+  </div>
+</Base>

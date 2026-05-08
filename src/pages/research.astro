@@ -1,0 +1,145 @@
+---
+import Base from "../layouts/Base.astro";
+import Pillar from "../components/Pillar.astro";
+
+const pillars = [
+  {
+    number: "01",
+    title: "Video Processing",
+    subtitle: "Low-level video enhancement",
+    description:
+      "We make video look better at the pixel level. By exploiting temporal structure across frames, we synthesize smoother motion, restore detail beyond a single frame's limits, stabilize shaky perspective, and minimize quality loss under bandwidth constraints. Each task reduces to one core problem — modeling motion and correspondence between frames precisely enough to act on it.",
+    topics: [
+      "Video Frame Interpolation",
+      "Video Compression",
+      "Video Stabilization",
+      "Video Super-Resolution & Enhancement",
+      "Motion Estimation & Compensation",
+    ],
+    works: [
+      {
+        title:
+          "AdaCoF: Adaptive Collaboration of Flows for Video Frame Interpolation",
+        venue: "CVPR 2020",
+      },
+      {
+        title: "Exploring Discontinuity for Video Frame Interpolation",
+        venue: "CVPR 2023",
+        highlight: "Highlight · Top 10%",
+      },
+    ],
+    thread:
+      "All tasks reduce to precise modeling of inter-frame motion and correspondence.",
+  },
+  {
+    number: "02",
+    title: "Video Understanding",
+    subtitle: "Temporal semantics & representation learning",
+    description:
+      "We extract semantic meaning from temporal visual data — understanding what changes in a video and why. From action recognition to large-scale video foundation models, we study representations that capture meaningful temporal structure rather than treating video as a sequence of independent images.",
+    topics: [
+      "Video Foundation Models",
+      "Action Recognition",
+      "Video Retrieval & Question Answering",
+      "Temporal Representation Learning",
+      "Video–Language Alignment",
+    ],
+    works: [
+      {
+        title:
+          "Learning Temporally Invariant and Localizable Features via Data Augmentation for Video Recognition",
+        venue: "ECCVW 2020",
+        highlight: "Oral",
+      },
+      {
+        title:
+          "TWLV-I: Analysis and Insights from Holistic Evaluation on Video Foundation Models",
+        venue: "Twelve Labs Technical Report, 2024",
+      },
+    ],
+    thread:
+      "Temporal semantics is the bridge from pixels to meaning — understanding what changes, and why.",
+  },
+  {
+    number: "03",
+    title: "3D / 4D Vision",
+    subtitle: "3D scene reconstruction & rendering",
+    description:
+      "We reconstruct 3D scenes from 2D observations and render them from new viewpoints. Neural representations — radiance fields, Gaussian splatting — capture geometry and appearance with high fidelity. From this foundation, we extend naturally into 4D, modeling how scenes evolve over time.",
+    topics: [
+      "3D Scene Reconstruction",
+      "Neural Radiance Fields (NeRF)",
+      "3D & 4D Gaussian Splatting",
+      "Novel View Synthesis",
+      "Dynamic Scene Reconstruction",
+    ],
+    works: [
+      {
+        title:
+          "Temporal Smoothness-Aware Rate-Distortion Optimized 4D Gaussian Splatting",
+        venue: "NeurIPS 2025",
+      },
+    ],
+    thread:
+      "Recovering 3D structure from 2D observations — naturally extending into time when scenes move.",
+  },
+  {
+    number: "04",
+    title: "World Models",
+    subtitle: "Generative simulation of the visual world",
+    description:
+      "We build generative systems for the visual world — from single-image synthesis with diffusion, through action-conditioned and physics-aware video generation, and into world foundation models that let robots and embodied agents anticipate the consequences of their actions. Across these directions, the aim is the same: visual intelligence — perception, prediction, and simulation — for systems that act in the world.",
+    topics: [
+      "World Foundation Models",
+      "Action-Conditioned Video Generation",
+      "Latent Action Models",
+      "Physics-Aware Generation",
+      "Foundation Models for Embodied AI",
+      "Image/Video Generation",
+    ],
+    direction:
+      "An active research direction, building on recent advances in action-conditioned video diffusion and latent action pretraining. Publications expected as the lab matures.",
+    thread:
+      "Generation, prediction, and action-conditioning share one foundation — and one purpose: equipping agents to anticipate the visual consequences of action.",
+  },
+];
+---
+
+<Base
+  title="Research — ViViD Lab"
+  description="Vision and Video Dynamics Lab pursues a single research agenda — temporal dynamics — across four pillars: video processing, video understanding, 3D/4D vision, and world models."
+>
+  <header class="mx-auto max-w-6xl px-6 lg:px-8 pt-16 lg:pt-20 pb-12 lg:pb-16">
+    <p
+      class="text-[11px] uppercase tracking-[0.22em] text-cyan-deep font-semibold"
+    >
+      Vision and Video Dynamics Lab · Research
+    </p>
+    <h1
+      class="mt-5 font-display text-[2rem] lg:text-[2.5rem] leading-[1.12] tracking-tight font-semibold text-ink max-w-3xl"
+    >
+      A single research agenda<br class="hidden sm:inline" />
+      <span class="text-navy">at increasing levels of abstraction.</span>
+    </h1>
+    <p class="mt-6 text-[15px] text-ink-soft leading-relaxed">
+      Our research follows one progression — from pixel-level motion at the
+      bottom, to world-scale simulation at the top. Each pillar builds on the
+      one below it. The unifying object of study, across all four, is
+      <span class="text-ink font-medium">temporal dynamics</span> — how the
+      visual world changes over time.
+    </p>
+  </header>
+
+  <div class="mx-auto max-w-6xl px-6 lg:px-8 pb-24">
+    <div class="space-y-16 lg:space-y-24">
+      {
+        pillars.map((p, i) => (
+          <>
+            {i > 0 && <div class="border-t border-line" />}
+            <Pillar {...p} />
+          </>
+        ))
+      }
+    </div>
+  </div>
+</Base>

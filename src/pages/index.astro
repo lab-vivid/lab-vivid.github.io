@@ -1,0 +1,25 @@
+---
+import Base from "../layouts/Base.astro";
+import Hero from "../components/Hero.astro";
+import NewsList from "../components/NewsList.astro";
+---
+
+<Base>
+  <Hero />
+
+  <section class="mx-auto max-w-6xl px-6 lg:px-8 pb-20">
+    <div class="flex items-baseline justify-between mb-8">
+      <h2
+        class="font-display text-2xl tracking-tight text-ink font-semibold"
+      >
+        News
+      </h2>
+      <a
+        href="/news"
+        class="text-sm text-ink-soft hover:text-navy transition-colors"
+        >All news →</a
+      >
+    </div>
+    <NewsList />
+  </section>
+</Base>

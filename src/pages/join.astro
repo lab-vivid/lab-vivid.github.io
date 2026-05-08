@@ -1,0 +1,200 @@
+---
+import Base from "../layouts/Base.astro";
+
+const FORM_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLSfq-wK5Arz6Ul0knJ2KDjBSK_SE4ILi9S-fe3lgmtwvXQB-EQ/viewform";
+---
+
+<Base
+  title="Join Us — ViViD Lab"
+  description="ViViD Lab is recruiting motivated students at all levels — Ph.D., M.S., and undergraduate interns."
+>
+  <header class="mx-auto max-w-6xl px-6 lg:px-8 pt-16 lg:pt-20 pb-12 lg:pb-16">
+    <p
+      class="text-[11px] uppercase tracking-[0.22em] text-cyan-deep font-semibold"
+    >
+      Vision and Video Dynamics Lab · Join Us
+    </p>
+    <h1
+      class="mt-5 font-display text-[2rem] lg:text-[2.5rem] leading-[1.12] tracking-tight font-semibold text-ink"
+    >
+      Join us.
+    </h1>
+    <p class="mt-6 text-[15px] text-ink-soft leading-relaxed">
+      ViViD Lab is actively recruiting motivated students at all levels — Ph.D.,
+      M.S., and undergraduate interns. If you're excited by any of our research
+      pillars, we'd love to hear from you.
+    </p>
+  </header>
+
+  <div class="mx-auto max-w-6xl px-6 lg:px-8 pb-24">
+    <div class="space-y-16 lg:space-y-24">
+
+      <!-- Apply -->
+      <section class="grid grid-cols-12 gap-6 lg:gap-12">
+        <header class="col-span-12 lg:col-span-4">
+          <div
+            class="font-display text-[11px] tracking-[0.22em] text-cyan-deep font-semibold uppercase"
+          >
+            Apply
+          </div>
+          <h2
+            class="mt-2 font-display text-2xl lg:text-[1.75rem] tracking-tight font-semibold text-ink leading-tight"
+          >
+            Application form.
+          </h2>
+          <p class="mt-2 text-sm text-ink-soft">Open at all levels.</p>
+        </header>
+
+        <div class="col-span-12 lg:col-span-8 space-y-5">
+          <p class="text-[15px] leading-relaxed text-ink">
+            Please submit your application through the Google Form below. It
+            asks for your CV, transcript, research interests, and a few short
+            questions to help us understand your fit with the lab.
+          </p>
+          <a
+            href={FORM_URL}
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center mt-2 px-5 py-2.5 rounded-full bg-navy text-paper hover:bg-navy-deep transition-colors font-medium text-sm"
+          >
+            Open application form ↗
+          </a>
+          <p class="text-sm text-ink-soft leading-relaxed">
+            We aim to respond within about two weeks. For Ph.D./M.S. applicants,
+            please apply before the formal SeoulTech admissions deadline so we
+            can coordinate.
+          </p>
+        </div>
+      </section>
+
+      <div class="border-t border-line"></div>
+
+      <!-- Background -->
+      <section class="grid grid-cols-12 gap-6 lg:gap-12">
+        <header class="col-span-12 lg:col-span-4">
+          <div
+            class="font-display text-[11px] tracking-[0.22em] text-cyan-deep font-semibold uppercase"
+          >
+            Background
+          </div>
+          <h2
+            class="mt-2 font-display text-2xl lg:text-[1.75rem] tracking-tight font-semibold text-ink leading-tight"
+          >
+            Useful preparation.
+          </h2>
+          <p class="mt-2 text-sm text-ink-soft">
+            Or willingness to pick it up quickly.
+          </p>
+        </header>
+
+        <div class="col-span-12 lg:col-span-8 space-y-6">
+          <div>
+            <h3
+              class="text-[10px] uppercase tracking-[0.18em] text-ink-mute font-semibold"
+            >
+              Tools & language
+            </h3>
+            <p class="mt-2 text-[15px] leading-relaxed text-ink">
+              We use <span class="font-medium">Python</span> and
+              <span class="font-medium">PyTorch</span> as our daily toolkit. Comfort
+              reading and writing in <span class="font-medium">English</span> helps
+              too.
+            </p>
+          </div>
+
+          <div>
+            <h3
+              class="text-[10px] uppercase tracking-[0.18em] text-ink-mute font-semibold"
+            >
+              Coursework you'll find useful
+            </h3>
+            <ul class="mt-3 grid sm:grid-cols-2 gap-y-1.5 gap-x-6 text-sm">
+              {
+                [
+                  "Linear Algebra",
+                  "Probability & Statistics",
+                  "Signals & Systems",
+                  "Digital Signal Processing",
+                  "Image Processing",
+                  "Computer Vision",
+                  "Machine Learning",
+                ].map((c) => (
+                  <li class="flex items-start gap-2.5 text-ink">
+                    <span class="text-cyan mt-1.5 h-1 w-1 rounded-full bg-current shrink-0" />
+                    <span>{c}</span>
+                  </li>
+                ))
+              }
+            </ul>
+            <p class="mt-3 text-sm text-ink-soft leading-relaxed">
+              A subset is fine — equivalent or in-progress courses count too.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div class="border-t border-line"></div>
+
+      <!-- Contact -->
+      <section class="grid grid-cols-12 gap-6 lg:gap-12">
+        <header class="col-span-12 lg:col-span-4">
+          <div
+            class="font-display text-[11px] tracking-[0.22em] text-cyan-deep font-semibold uppercase"
+          >
+            Contact
+          </div>
+          <h2
+            class="mt-2 font-display text-2xl lg:text-[1.75rem] tracking-tight font-semibold text-ink leading-tight"
+          >
+            Get in touch.
+          </h2>
+          <p class="mt-2 text-sm text-ink-soft">
+            For questions outside the application.
+          </p>
+        </header>
+
+        <div class="col-span-12 lg:col-span-8 space-y-6">
+          <div>
+            <div
+              class="text-[10px] uppercase tracking-[0.18em] text-ink-mute font-semibold"
+            >
+              Email
+            </div>
+            <div class="mt-1.5 text-[15px]">
+              <a
+                href="mailto:hyeongmin.lee@seoultech.ac.kr"
+                class="text-cyan-deep underline underline-offset-4 decoration-cyan-deep/40 hover:decoration-cyan-deep transition-colors"
+              >
+                hyeongmin.lee@seoultech.ac.kr
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <div
+              class="text-[10px] uppercase tracking-[0.18em] text-ink-mute font-semibold"
+            >
+              Phone
+            </div>
+            <div class="mt-1.5 text-[15px] text-ink">02-970-6494</div>
+          </div>
+
+          <div>
+            <div
+              class="text-[10px] uppercase tracking-[0.18em] text-ink-mute font-semibold"
+            >
+              Office
+            </div>
+            <div class="mt-1.5 text-[15px] text-ink leading-relaxed">
+              Changhak Hall, Room 334-1<br />
+              Seoul National University of Science and Technology<br />
+              232 Gongneung-ro, Nowon-gu, Seoul 01811, Republic of Korea
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</Base>
