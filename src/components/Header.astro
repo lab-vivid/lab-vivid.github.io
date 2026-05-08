@@ -25,6 +25,7 @@ const path = Astro.url.pathname;
     >
       <Wordmark class="text-2xl" />
     </a>
+
     <nav class="hidden md:flex items-center gap-8 text-[15px]">
       {
         nav.map(({ href, label }) => {
@@ -40,5 +41,87 @@ const path = Astro.url.pathname;
         })
       }
     </nav>
+
+    <button
+      type="button"
+      id="mobile-menu-toggle"
+      class="md:hidden p-2 -mr-2 text-ink"
+      aria-label="Toggle navigation menu"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+    >
+      <svg
+        class="js-icon-open"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+      >
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+      <svg
+        class="js-icon-close hidden"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+      >
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+        <line x1="6" y1="18" x2="18" y2="6"></line>
+      </svg>
+    </button>
   </div>
+
+  <nav
+    id="mobile-nav"
+    class="hidden md:hidden border-t border-line bg-paper"
+  >
+    <ul class="mx-auto max-w-6xl px-6 py-2">
+      {
+        nav.map(({ href, label }) => {
+          const active = path === href || path.startsWith(href + "/");
+          return (
+            <li class="border-b border-line last:border-b-0">
+              <a
+                href={href}
+                class={`block py-3 text-base transition-colors ${active ? "text-navy font-medium" : "text-ink-soft hover:text-ink"}`}
+              >
+                {label}
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </nav>
 </header>
+
+<script>
+  const toggle = document.getElementById("mobile-menu-toggle");
+  const mobileNav = document.getElementById("mobile-nav");
+  const iconOpen = toggle?.querySelector(".js-icon-open");
+  const iconClose = toggle?.querySelector(".js-icon-close");
+
+  toggle?.addEventListener("click", () => {
+    const isOpen = !mobileNav?.classList.contains("hidden");
+    if (isOpen) {
+      mobileNav?.classList.add("hidden");
+      iconOpen?.classList.remove("hidden");
+      iconClose?.classList.add("hidden");
+      toggle.setAttribute("aria-expanded", "false");
+    } else {
+      mobileNav?.classList.remove("hidden");
+      iconOpen?.classList.add("hidden");
+      iconClose?.classList.remove("hidden");
+      toggle.setAttribute("aria-expanded", "true");
+    }
+  });
+</script>
