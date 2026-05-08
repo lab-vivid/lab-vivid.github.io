@@ -173,7 +173,7 @@ const parseAuthors = (str: string): AuthorToken[] =>
                     {parseAuthors(pub.authors).map((a, i) => (
                       <>
                         {i > 0 && <span>, </span>}
-                        <span class={a.isPI ? "font-semibold text-ink" : ""}>
+                        <span>
                           {a.name}
                           {a.equal && "*"}
                           {a.corr && "†"}
