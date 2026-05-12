@@ -1,0 +1,174 @@
+---
+// Pillar 4 — observation + action → diffusion model → imagined futures → robot trains
+// Pass `nowSrc` (current frame) and `futureSrcs` (3 imagined frames) to swap blocks for samples.
+
+interface Props {
+  nowSrc?: string;
+  futureSrcs?: [string, string, string] | string[];
+}
+const { nowSrc, futureSrcs } = Astro.props;
+const futures = futureSrcs ?? [undefined, undefined, undefined];
+---
+
+<svg
+  viewBox="0 0 600 340"
+  class="w-full h-auto"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <marker id="arrow-w" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#0a0e1a" />
+    </marker>
+    <marker id="arrow-w-cyan" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#0891b2" />
+    </marker>
+    <clipPath id="wm-now-clip"><rect x="20" y="55" width="70" height="60" rx="4" /></clipPath>
+    <clipPath id="wm-fut-1"><rect x="400" y="40" width="80" height="55" rx="3" /></clipPath>
+    <clipPath id="wm-fut-2"><rect x="420" y="60" width="80" height="55" rx="3" /></clipPath>
+    <clipPath id="wm-fut-3"><rect x="440" y="80" width="80" height="55" rx="3" /></clipPath>
+    <filter id="wm-muted">
+      <feColorMatrix type="saturate" values="0.2" />
+    </filter>
+  </defs>
+
+  <!-- ===== Observation panel (current scene) ===== -->
+  <g>
+    {
+      nowSrc ? (
+        <image
+          href={nowSrc}
+          x="20"
+          y="55"
+          width="70"
+          height="60"
+          preserveAspectRatio="xMidYMid slice"
+          clip-path="url(#wm-now-clip)"
+          filter="url(#wm-muted)"
+          opacity="0.75"
+        />
+      ) : (
+        <>
+          <rect x="20" y="55" width="70" height="60" rx="4" fill="#e8eef9" />
+          <!-- floor -->
+          <line x1="28" y1="103" x2="82" y2="103" stroke="#94a3b8" stroke-width="1.2" />
+          <!-- object on floor -->
+          <rect x="35" y="87" width="16" height="16" rx="2" fill="#0d47a1" />
+          <!-- a second smaller object for scene context -->
+          <circle cx="68" cy="98" r="5" fill="#94a3b8" opacity="0.7" />
+        </>
+      )
+    }
+    <rect x="20" y="55" width="70" height="60" rx="4" fill="none" stroke="#0d47a1" stroke-width="1.5" />
+    <text x="55" y="135" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#0a0e1a">Observation</text>
+    <text x="55" y="150" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#94a3b8">current scene</text>
+  </g>
+
+  <!-- ===== Big "+" combining observation and action ===== -->
+  <text x="105" y="93" text-anchor="middle" font-family="Inter, sans-serif" font-size="28" font-weight="700" fill="#0d47a1">+</text>
+
+  <!-- ===== Action panel (D-pad with one direction pressed) ===== -->
+  <g>
+    <rect x="120" y="55" width="70" height="60" rx="4" fill="#ffffff" stroke="#0891b2" stroke-width="1.5" stroke-dasharray="3 2" />
+
+    <!-- D-pad: cross of arrows, right one highlighted -->
+    <g transform="translate(155, 85)">
+      <!-- center hub -->
+      <circle cx="0" cy="0" r="3" fill="#0891b2" opacity="0.4" />
+      <!-- up arrow (idle gray) -->
+      <polygon points="-4,-9 0,-17 4,-9" fill="#cbd5e1" />
+      <rect x="-2.5" y="-9" width="5" height="6" fill="#cbd5e1" />
+      <!-- down arrow -->
+      <polygon points="-4,9 0,17 4,9" fill="#cbd5e1" />
+      <rect x="-2.5" y="3" width="5" height="6" fill="#cbd5e1" />
+      <!-- left arrow -->
+      <polygon points="-9,-4 -17,0 -9,4" fill="#cbd5e1" />
+      <rect x="-9" y="-2.5" width="6" height="5" fill="#cbd5e1" />
+      <!-- right arrow (active cyan) -->
+      <polygon points="9,-4 17,0 9,4" fill="#0891b2" />
+      <rect x="3" y="-2.5" width="6" height="5" fill="#0891b2" />
+    </g>
+
+    <text x="155" y="135" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="600" fill="#0891b2">Interaction</text>
+    <text x="155" y="150" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#94a3b8">action / control input</text>
+  </g>
+
+  <!-- ===== Arrow → Diffusion ===== -->
+  <line x1="200" y1="85" x2="225" y2="85" stroke="#0a0e1a" stroke-width="2" marker-end="url(#arrow-w)" />
+
+  <!-- ===== Diffusion model (slightly smaller) ===== -->
+  <g>
+    <rect x="232" y="50" width="125" height="80" rx="40" fill="#ffffff" stroke="#0d47a1" stroke-width="2" />
+    <text x="294" y="85" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" font-weight="600" fill="#0d47a1">Diffusion</text>
+    <text x="294" y="105" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#0d47a1">World Model</text>
+  </g>
+
+  <!-- ===== Arrow → Futures ===== -->
+  <line x1="365" y1="85" x2="395" y2="85" stroke="#0a0e1a" stroke-width="2" marker-end="url(#arrow-w)" />
+
+  <!-- ===== Imagined future frames (diagonal stack) ===== -->
+  <g>
+    {
+      futures[0] ? (
+        <image href={futures[0]} x="400" y="40" width="80" height="55" preserveAspectRatio="xMidYMid slice" clip-path="url(#wm-fut-1)" filter="url(#wm-muted)" opacity="0.4" />
+      ) : (
+        <rect x="400" y="40" width="80" height="55" rx="3" fill="#06b6d4" opacity="0.15" />
+      )
+    }
+    <rect x="400" y="40" width="80" height="55" rx="3" fill="none" stroke="#0891b2" stroke-width="1" opacity="0.6" />
+    {
+      futures[1] ? (
+        <image href={futures[1]} x="420" y="60" width="80" height="55" preserveAspectRatio="xMidYMid slice" clip-path="url(#wm-fut-2)" filter="url(#wm-muted)" opacity="0.6" />
+      ) : (
+        <rect x="420" y="60" width="80" height="55" rx="3" fill="#06b6d4" opacity="0.25" />
+      )
+    }
+    <rect x="420" y="60" width="80" height="55" rx="3" fill="none" stroke="#0891b2" stroke-width="1" opacity="0.8" />
+    {
+      futures[2] ? (
+        <image href={futures[2]} x="440" y="80" width="80" height="55" preserveAspectRatio="xMidYMid slice" clip-path="url(#wm-fut-3)" filter="url(#wm-muted)" opacity="0.85" />
+      ) : (
+        <rect x="440" y="80" width="80" height="55" rx="3" fill="#06b6d4" opacity="0.4" />
+      )
+    }
+    <rect x="440" y="80" width="80" height="55" rx="3" fill="none" stroke="#0891b2" stroke-width="1.5" />
+    <text x="460" y="160" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#475569">Imagined futures</text>
+  </g>
+
+  <!-- ===== Down arrow → Robot ===== -->
+  <line x1="475" y1="180" x2="475" y2="230" stroke="#0a0e1a" stroke-width="2" marker-end="url(#arrow-w)" />
+
+  <!-- ===== Closed-loop arrow: Robot → Interaction (next action) ===== -->
+  <path
+    d="M 350,275 C 240,275 155,210 155,128"
+    fill="none"
+    stroke="#0891b2"
+    stroke-width="2"
+    stroke-dasharray="5 4"
+    opacity="0.85"
+    marker-end="url(#arrow-w-cyan)"
+  />
+  <text
+    x="240"
+    y="240"
+    font-family="Inter, sans-serif"
+    font-size="11"
+    font-style="italic"
+    fill="#0891b2"
+  >next action · closed loop</text>
+
+  <!-- ===== Robot training box ===== -->
+  <g>
+    <rect x="350" y="240" width="250" height="85" rx="10" fill="#e8eef9" stroke="#0d47a1" stroke-width="1.5" stroke-dasharray="3 3" />
+
+    <!-- Robot icon, left -->
+    <circle cx="400" cy="258" r="3" fill="#06b6d4" />
+    <line x1="400" y1="262" x2="400" y2="270" stroke="#0d47a1" stroke-width="2" />
+    <rect x="385" y="270" width="30" height="24" rx="3" fill="#0d47a1" />
+    <circle cx="393" cy="282" r="2.5" fill="#06b6d4" />
+    <circle cx="407" cy="282" r="2.5" fill="#06b6d4" />
+
+    <!-- Text right of icon -->
+    <text x="510" y="278" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#0a0e1a">Robot interacts</text>
+    <text x="510" y="298" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#475569">in its imagination</text>
+  </g>
+</svg>

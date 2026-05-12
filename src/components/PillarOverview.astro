@@ -1,0 +1,54 @@
+---
+import PillarHeader from "./PillarHeader.astro";
+
+interface Props {
+  number: string;
+  title: string;
+  subtitle: string;
+  topics: string[];
+  thread?: string;
+}
+const { number, title, subtitle, topics, thread } = Astro.props;
+---
+
+<PillarHeader number={number} title={title} subtitle={subtitle} />
+
+<div
+  class="max-w-6xl mx-auto w-full mt-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start"
+>
+  <!-- Left: Topics list -->
+  <div class="lg:col-span-5">
+    <h3
+      class="text-sm uppercase tracking-[0.18em] text-ink-soft font-semibold"
+    >
+      Topics
+    </h3>
+    <ul
+      class="mt-4 space-y-3 text-lg lg:text-xl text-ink"
+    >
+      {
+        topics.map((t) => (
+          <li class="flex items-start gap-3">
+            <span class="text-cyan mt-2.5 h-2 w-2 rounded-full bg-current shrink-0" />
+            <span>{t}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <!-- Right: Diagram(s) — slot -->
+  <div class="lg:col-span-7">
+    <slot />
+  </div>
+</div>
+
+{
+  thread && (
+    <p
+      class="max-w-6xl mx-auto w-full mt-10 text-base lg:text-lg italic text-ink-soft border-l-2 border-cyan pl-4 leading-relaxed"
+    >
+      {thread}
+    </p>
+  )
+}

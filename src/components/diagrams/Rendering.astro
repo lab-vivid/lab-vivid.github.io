@@ -1,0 +1,107 @@
+---
+// Pillar 3 — multi-view photos → 3D representation → render new view
+// Pass `photoSrcs` (3) and `outputSrc` to swap decorative blocks for samples.
+
+interface Props {
+  photoSrcs?: [string, string, string] | string[];
+  outputSrc?: string;
+}
+const { photoSrcs, outputSrc } = Astro.props;
+const photos = photoSrcs ?? [undefined, undefined, undefined];
+---
+
+<svg
+  viewBox="0 0 600 280"
+  class="w-full h-auto"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <marker id="arrow-r" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#0a0e1a" />
+    </marker>
+    <radialGradient id="gauss-glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0" />
+    </radialGradient>
+    <clipPath id="rend-photo-1"><rect x="20" y="40" width="80" height="55" rx="3" /></clipPath>
+    <clipPath id="rend-photo-2"><rect x="20" y="115" width="80" height="55" rx="3" /></clipPath>
+    <clipPath id="rend-photo-3"><rect x="20" y="190" width="80" height="55" rx="3" /></clipPath>
+    <clipPath id="rend-output"><rect x="490" y="100" width="100" height="80" rx="4" /></clipPath>
+    <filter id="rend-muted">
+      <feColorMatrix type="saturate" values="0.2" />
+    </filter>
+  </defs>
+
+  <!-- Multiple photos (input) -->
+  <g>
+    <g transform="rotate(-8 60 67)">
+      {
+        photos[0] ? (
+          <image href={photos[0]} x="20" y="40" width="80" height="55" preserveAspectRatio="xMidYMid slice" clip-path="url(#rend-photo-1)" filter="url(#rend-muted)" opacity="0.7" />
+        ) : (
+          <rect x="20" y="40" width="80" height="55" rx="3" fill="#e8eef9" />
+        )
+      }
+      <rect x="20" y="40" width="80" height="55" rx="3" fill="none" stroke="#0d47a1" stroke-width="1.2" />
+    </g>
+    {
+      photos[1] ? (
+        <image href={photos[1]} x="20" y="115" width="80" height="55" preserveAspectRatio="xMidYMid slice" clip-path="url(#rend-photo-2)" filter="url(#rend-muted)" opacity="0.7" />
+      ) : (
+        <rect x="20" y="115" width="80" height="55" rx="3" fill="#e8eef9" />
+      )
+    }
+    <rect x="20" y="115" width="80" height="55" rx="3" fill="none" stroke="#0d47a1" stroke-width="1.2" />
+    <g transform="rotate(8 60 217)">
+      {
+        photos[2] ? (
+          <image href={photos[2]} x="20" y="190" width="80" height="55" preserveAspectRatio="xMidYMid slice" clip-path="url(#rend-photo-3)" filter="url(#rend-muted)" opacity="0.7" />
+        ) : (
+          <rect x="20" y="190" width="80" height="55" rx="3" fill="#e8eef9" />
+        )
+      }
+      <rect x="20" y="190" width="80" height="55" rx="3" fill="none" stroke="#0d47a1" stroke-width="1.2" />
+    </g>
+    <text x="60" y="265" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#475569">Photos</text>
+    <text x="60" y="282" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#94a3b8">(many angles)</text>
+  </g>
+
+  <!-- Arrow -->
+  <line x1="115" y1="142" x2="180" y2="142" stroke="#0a0e1a" stroke-width="2" marker-end="url(#arrow-r)" />
+  <text x="148" y="132" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#0d47a1" font-weight="600">learn</text>
+
+  <!-- 3D representation: cluster of Gaussians -->
+  <g>
+    <rect x="195" y="60" width="200" height="170" rx="10" fill="#ffffff" stroke="#0d47a1" stroke-width="1.5" stroke-dasharray="3 3" />
+    <circle cx="250" cy="120" r="22" fill="url(#gauss-glow)" />
+    <circle cx="290" cy="100" r="18" fill="url(#gauss-glow)" />
+    <circle cx="320" cy="135" r="25" fill="url(#gauss-glow)" />
+    <circle cx="270" cy="160" r="20" fill="url(#gauss-glow)" />
+    <circle cx="340" cy="170" r="17" fill="url(#gauss-glow)" />
+    <circle cx="305" cy="185" r="14" fill="url(#gauss-glow)" />
+    <circle cx="370" cy="100" r="12" fill="url(#gauss-glow)" />
+    <circle cx="225" cy="170" r="14" fill="url(#gauss-glow)" />
+    <text x="295" y="252" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#475569">3D representation</text>
+    <text x="295" y="270" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#94a3b8">(NeRF / Gaussians)</text>
+  </g>
+
+  <!-- Arrow -->
+  <line x1="410" y1="142" x2="475" y2="142" stroke="#0a0e1a" stroke-width="2" marker-end="url(#arrow-r)" />
+  <text x="443" y="132" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#0d47a1" font-weight="600">render</text>
+
+  <!-- Output: new view -->
+  <g>
+    {
+      outputSrc ? (
+        <image href={outputSrc} x="490" y="100" width="100" height="80" preserveAspectRatio="xMidYMid slice" clip-path="url(#rend-output)" filter="url(#rend-muted)" opacity="0.85" />
+      ) : (
+        <>
+          <rect x="490" y="100" width="100" height="80" rx="4" fill="#0d47a1" opacity="0.85" />
+          <circle cx="540" cy="135" r="12" fill="#06b6d4" opacity="0.9" />
+        </>
+      )
+    }
+    <rect x="490" y="100" width="100" height="80" rx="4" fill="none" stroke="#0d47a1" stroke-width="1.5" />
+    <text x="540" y="200" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#475569">New viewpoint</text>
+  </g>
+</svg>

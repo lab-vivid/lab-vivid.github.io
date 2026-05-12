@@ -1,0 +1,90 @@
+---
+interface Props {
+  beforeSrc: string;
+  afterSrc: string;
+  beforeLabel?: string;
+  afterLabel?: string;
+}
+const {
+  beforeSrc,
+  afterSrc,
+  beforeLabel = "BEFORE",
+  afterLabel = "AFTER",
+} = Astro.props;
+const id = "ba-" + Math.random().toString(36).slice(2, 9);
+---
+
+<div class="ba-container relative w-full select-none cursor-ew-resize" id={id}>
+  <!-- AFTER (full image, sits underneath) -->
+  <img
+    src={afterSrc}
+    alt="after"
+    class="ba-after w-full h-auto block pointer-events-none"
+    draggable="false"
+  />
+  <!-- BEFORE (overlay, clipped from the RIGHT side using clip-path) -->
+  <img
+    src={beforeSrc}
+    alt="before"
+    class="ba-before absolute inset-0 w-full h-auto pointer-events-none"
+    draggable="false"
+    style="clip-path: inset(0 50% 0 0);"
+  />
+
+  <!-- Vertical handle line + grip -->
+  <div
+    class="ba-handle absolute top-0 bottom-0 w-[2px] bg-white pointer-events-none shadow-[0_0_0_1px_rgba(0,0,0,0.4)]"
+    style="left: 50%;"
+  >
+    <div
+      class="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white border-2 border-navy flex items-center justify-center shadow-md"
+    >
+      <span class="text-navy text-xs font-bold leading-none">‹›</span>
+    </div>
+  </div>
+
+  <!-- Labels -->
+  <div
+    class="absolute top-3 left-3 px-3 py-1.5 text-xs uppercase tracking-[0.16em] font-bold text-white bg-black/55 rounded"
+  >
+    {beforeLabel}
+  </div>
+  <div
+    class="absolute top-3 right-3 px-3 py-1.5 text-xs uppercase tracking-[0.16em] font-bold text-white bg-navy/80 rounded"
+  >
+    {afterLabel}
+  </div>
+</div>
+
+<script define:vars={{ id }}>
+  const root = document.getElementById(id);
+  if (root) {
+    const before = root.querySelector(".ba-before");
+    const handle = root.querySelector(".ba-handle");
+    let dragging = false;
+
+    const setPos = (clientX) => {
+      const rect = root.getBoundingClientRect();
+      let pct = ((clientX - rect.left) / rect.width) * 100;
+      pct = Math.max(0, Math.min(100, pct));
+      before.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+      handle.style.left = `${pct}%`;
+    };
+
+    root.addEventListener("pointerdown", (e) => {
+      dragging = true;
+      root.setPointerCapture(e.pointerId);
+      setPos(e.clientX);
+    });
+    root.addEventListener("pointermove", (e) => {
+      if (dragging) setPos(e.clientX);
+    });
+    root.addEventListener("pointerup", (e) => {
+      dragging = false;
+      root.releasePointerCapture(e.pointerId);
+    });
+    root.addEventListener("pointercancel", () => {
+      dragging = false;
+    });
+  }
+</script>

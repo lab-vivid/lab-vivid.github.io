@@ -1,0 +1,109 @@
+---
+// Pillar 1 — compression: big video → small file → reconstructed video
+// Pass `inputSrc` / `outputSrc` to swap the decorative blocks for real samples.
+
+interface Props {
+  inputSrc?: string;
+  outputSrc?: string;
+}
+const { inputSrc, outputSrc } = Astro.props;
+---
+
+<svg
+  viewBox="0 0 600 220"
+  class="w-full h-auto"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <marker id="arrow-c" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#0a0e1a" />
+    </marker>
+    <clipPath id="comp-input-clip">
+      <rect x="20" y="50" width="120" height="80" rx="6" />
+    </clipPath>
+    <clipPath id="comp-output-clip">
+      <rect x="360" y="50" width="120" height="80" rx="6" />
+    </clipPath>
+    <filter id="comp-muted">
+      <feColorMatrix type="saturate" values="0.2" />
+    </filter>
+  </defs>
+
+  <!-- Original video -->
+  <g>
+    {
+      inputSrc ? (
+        <image
+          href={inputSrc}
+          x="20"
+          y="50"
+          width="120"
+          height="80"
+          preserveAspectRatio="xMidYMid slice"
+          clip-path="url(#comp-input-clip)"
+          filter="url(#comp-muted)"
+          opacity="0.7"
+        />
+      ) : (
+        <>
+          <rect x="20" y="50" width="120" height="80" rx="6" fill="#e8eef9" stroke="#0d47a1" stroke-width="1.5" />
+          <rect x="35" y="65" width="90" height="50" rx="3" fill="#0d47a1" opacity="0.25" />
+        </>
+      )
+    }
+    <rect x="20" y="50" width="120" height="80" rx="6" fill="none" stroke="#0d47a1" stroke-width="1.5" />
+    <text x="80" y="155" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#0a0e1a" font-weight="600">Original</text>
+    <text x="80" y="175" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#475569">100 MB</text>
+  </g>
+
+  <!-- Encoder arrow -->
+  <line x1="155" y1="90" x2="200" y2="90" stroke="#0a0e1a" stroke-width="2" marker-end="url(#arrow-c)" />
+  <text x="177" y="78" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#0d47a1" font-weight="600">encode</text>
+
+  <!-- Bitstream -->
+  <g>
+    <rect x="220" y="75" width="60" height="40" rx="4" fill="#06b6d4" opacity="0.15" stroke="#0891b2" stroke-width="1.5" />
+    <text x="250" y="100" text-anchor="middle" font-family="JetBrains Mono, ui-monospace, monospace" font-size="10" fill="#0891b2">01001…</text>
+    <text x="250" y="155" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#0a0e1a" font-weight="600">Bitstream</text>
+    <text x="250" y="175" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#475569">2 MB</text>
+  </g>
+
+  <!-- Decoder arrow -->
+  <line x1="295" y1="90" x2="340" y2="90" stroke="#0a0e1a" stroke-width="2" marker-end="url(#arrow-c)" />
+  <text x="317" y="78" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#0d47a1" font-weight="600">decode</text>
+
+  <!-- Reconstructed video -->
+  <g>
+    {
+      outputSrc ? (
+        <image
+          href={outputSrc}
+          x="360"
+          y="50"
+          width="120"
+          height="80"
+          preserveAspectRatio="xMidYMid slice"
+          clip-path="url(#comp-output-clip)"
+          filter="url(#comp-muted)"
+          opacity="0.7"
+        />
+      ) : (
+        <>
+          <rect x="360" y="50" width="120" height="80" rx="6" fill="#e8eef9" stroke="#0d47a1" stroke-width="1.5" />
+          <rect x="375" y="65" width="90" height="50" rx="3" fill="#0d47a1" opacity="0.25" />
+        </>
+      )
+    }
+    <rect x="360" y="50" width="120" height="80" rx="6" fill="none" stroke="#0d47a1" stroke-width="1.5" />
+    <text x="420" y="155" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#0a0e1a" font-weight="600">Recovered</text>
+    <text x="420" y="175" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#475569">100 MB</text>
+  </g>
+
+  <!-- Storage / network annotation -->
+  <g>
+    <rect x="500" y="50" width="80" height="80" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-dasharray="4 3" stroke-width="1.5" />
+    <text x="540" y="85" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#475569">store</text>
+    <text x="540" y="103" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" fill="#475569">stream</text>
+    <text x="540" y="155" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#475569">use case</text>
+  </g>
+</svg>

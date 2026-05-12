@@ -1,0 +1,758 @@
+---
+import Showcase from "../layouts/Showcase.astro";
+import PillarHeader from "../components/PillarHeader.astro";
+import PillarOverview from "../components/PillarOverview.astro";
+import FocusedDemo from "../components/FocusedDemo.astro";
+import BeforeAfterSlider from "../components/BeforeAfterSlider.astro";
+import Enhancement from "../components/diagrams/Enhancement.astro";
+import Compression from "../components/diagrams/Compression.astro";
+import Understanding from "../components/diagrams/Understanding.astro";
+import Rendering from "../components/diagrams/Rendering.astro";
+import WorldModel from "../components/diagrams/WorldModel.astro";
+---
+
+<Showcase>
+  <!-- ============================================================ -->
+  <!-- 1. Opening                                                   -->
+  <!-- ============================================================ -->
+  <section class="showcase-section">
+    <div class="max-w-5xl mx-auto w-full">
+      <p
+        class="text-base lg:text-lg uppercase tracking-[0.22em] text-cyan-deep font-semibold"
+      >
+        Vision and Video Dynamics Lab
+      </p>
+      <h1
+        class="mt-8 font-display text-[2.75rem] lg:text-[3.75rem] leading-[1.1] tracking-tight font-semibold text-ink"
+      >
+        Studying how the visual world<br />
+        <span class="text-navy">changes over time.</span>
+      </h1>
+      <p class="mt-12 text-lg text-ink-soft">
+        Hyeongmin Lee · SeoulTech, Dept. of Electronic Engineering
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 2. Field anchor                                              -->
+  <!-- ============================================================ -->
+  <section class="showcase-section">
+    <div class="w-full text-center">
+      <p
+        class="text-base lg:text-lg uppercase tracking-[0.22em] text-ink-soft font-semibold"
+      >
+        Field
+      </p>
+      <h2
+        class="mt-10 font-display text-6xl lg:text-8xl tracking-tight font-semibold text-ink leading-[1.05]"
+      >
+        Computer Vision
+      </h2>
+      <p
+        class="mt-10 font-display text-2xl lg:text-3xl text-ink-soft tracking-wide"
+      >
+        Image
+        <span class="mx-4 text-cyan">·</span>
+        Video
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 3. Narrative spine                                           -->
+  <!-- ============================================================ -->
+  <section class="showcase-section bg-paper-soft">
+    <div class="max-w-6xl mx-auto w-full">
+      <p
+        class="text-base lg:text-lg uppercase tracking-[0.22em] text-cyan-deep font-semibold"
+      >
+        One agenda · four pillars
+      </p>
+      <h2
+        class="mt-6 font-display text-4xl lg:text-5xl tracking-tight font-semibold text-ink leading-tight max-w-3xl"
+      >
+        One question, four levels of abstraction.
+      </h2>
+
+      <div class="mt-14 grid grid-cols-1 lg:grid-cols-4 gap-5">
+        {
+          [
+            { n: "01", t: "Video Processing", s: "pixels" },
+            { n: "02", t: "Video Understanding", s: "meaning" },
+            { n: "03", t: "3D / 4D Vision", s: "space" },
+            { n: "04", t: "World Models", s: "future" },
+          ].map((p) => (
+            <div class="rounded-lg border border-line bg-paper p-6">
+              <div class="font-display text-sm tracking-[0.22em] text-cyan-deep font-semibold uppercase">
+                Pillar {p.n}
+              </div>
+              <div class="mt-3 font-display text-xl font-semibold text-ink">
+                {p.t}
+              </div>
+              <div class="mt-2 text-base text-ink-soft italic">{p.s}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 4. Pillar 1 — Overview                                       -->
+  <!-- ============================================================ -->
+  <section class="showcase-section">
+    <PillarOverview
+      number="01"
+      title="Video Processing"
+      subtitle="Low-level video enhancement"
+      topics={[
+        "Video Frame Interpolation",
+        "Video Super-Resolution & Enhancement",
+        "Video Stabilization",
+        "Video Compression",
+        "Motion Estimation & Compensation",
+      ]}
+      thread="All tasks reduce to precise modeling of inter-frame motion."
+    >
+      <div class="space-y-6">
+        <div>
+          <p class="text-xs uppercase tracking-[0.16em] text-ink-mute font-semibold mb-2">
+            Enhancement
+          </p>
+          <Enhancement />
+        </div>
+        <div>
+          <p class="text-xs uppercase tracking-[0.16em] text-ink-mute font-semibold mb-2">
+            Compression
+          </p>
+          <Compression />
+        </div>
+      </div>
+    </PillarOverview>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 5. Pillar 1 — Demo: Super-Resolution                         -->
+  <!-- ============================================================ -->
+  <section class="showcase-section">
+    <FocusedDemo
+      number="01"
+      title="Video Processing"
+      subtitle="Low-level video enhancement"
+      label="Super-Resolution — drag the handle"
+      refTitle="Real-ESRGAN"
+      refAuthors="Wang et al."
+      refVenue="ICCVW 2021"
+      refLink="https://github.com/xinntao/Real-ESRGAN"
+    >
+      <BeforeAfterSlider
+        beforeSrc="/assets/sr_before.jpg?v=2"
+        afterSrc="/assets/sr_after.jpg?v=2"
+        beforeLabel="Bicubic upscale"
+        afterLabel="Real-ESRGAN"
+      />
+    </FocusedDemo>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 6. Pillar 1 — Demo: Frame Interpolation                      -->
+  <!-- ============================================================ -->
+  <section class="showcase-section">
+    <FocusedDemo
+      number="01"
+      title="Video Processing"
+      subtitle="Low-level video enhancement"
+      label="Frame Interpolation"
+      refTitle="RIFE: Real-Time Intermediate Flow Estimation"
+      refAuthors="Huang et al."
+      refVenue="ECCV 2022"
+      refLink="https://github.com/megvii-research/ECCV2022-RIFE"
+    >
+      <video
+        src="/assets/vfi_compare.mp4?v=7"
+        autoplay
+        muted
+        loop
+        playsinline
+        class="w-full h-auto block"></video>
+    </FocusedDemo>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 7. Pillar 1 — Demo: Stabilization                            -->
+  <!-- ============================================================ -->
+  <section class="showcase-section">
+    <FocusedDemo
+      number="01"
+      title="Video Processing"
+      subtitle="Low-level video enhancement"
+      label="Stabilization"
+      refTitle="GaVS: 3D-Grounded Video Stabilization"
+      refAuthors="You et al."
+      refVenue="2025"
+      refLink="https://sinoyou.github.io/gavs/"
+    >
+      <video
+        src="/assets/stab_compare.mp4?v=2"
+        autoplay
+        muted
+        loop
+        playsinline
+        class="w-full h-auto block"></video>
+    </FocusedDemo>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 8. Pillar 2 — Overview                                       -->
+  <!-- ============================================================ -->
+  <section class="showcase-section bg-paper-soft">
+    <PillarOverview
+      number="02"
+      title="Video Understanding"
+      subtitle="Temporal semantics & representation learning"
+      topics={[
+        "Video Foundation Models",
+        "Video Question Answering",
+        "Video Retrieval",
+        "Action Recognition",
+        "Video–Language Alignment",
+        "Temporal Representation Learning",
+      ]}
+      thread="From pixels to meaning — what changes, and why."
+    >
+      <Understanding />
+    </PillarOverview>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 9. Pillar 2 — Example: Obama (success vs failure)            -->
+  <!-- ============================================================ -->
+  <section class="showcase-section bg-paper-soft">
+    <div class="max-w-[1280px] mx-auto w-full">
+      <header>
+        <div class="font-display text-base lg:text-lg tracking-[0.22em] text-cyan-deep font-semibold uppercase">
+          Pillar 02 · VLM example
+        </div>
+        <h2 class="mt-3 font-display text-3xl lg:text-4xl tracking-tight font-semibold text-ink leading-tight">
+          Visual reasoning
+        </h2>
+      </header>
+
+      <div class="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div class="lg:col-span-7">
+          <img
+            src="/assets/p2/obama.jpeg"
+            alt="Obama scale prank"
+            class="w-full h-auto rounded-lg border border-line"
+          />
+        </div>
+        <div class="lg:col-span-5 space-y-4">
+          <div class="rounded-lg bg-paper border border-line p-5">
+            <div class="text-xs uppercase tracking-[0.16em] text-ink-mute font-semibold mb-2">
+              Question
+            </div>
+            <div class="text-lg font-display font-medium text-ink">
+              Why is this image funny?
+            </div>
+          </div>
+          <div class="rounded-lg border-l-4 border-emerald-500 bg-emerald-50/60 p-5">
+            <div class="flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-emerald-700 font-semibold mb-2">
+              <span class="inline-flex w-5 h-5 rounded-full bg-emerald-500 text-white items-center justify-center text-xs">✓</span>
+              Success
+            </div>
+            <p class="text-base text-ink leading-relaxed">
+              Obama is playfully pressing down on the scale with his foot to make
+              the man weighing himself appear heavier. The aides nearby are
+              laughing at the prank.
+            </p>
+          </div>
+          <div class="rounded-lg border-l-4 border-rose-500 bg-rose-50/60 p-5">
+            <div class="flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-rose-700 font-semibold mb-2">
+              <span class="inline-flex w-5 h-5 rounded-full bg-rose-500 text-white items-center justify-center text-xs">✗</span>
+              Failure
+            </div>
+            <p class="text-base text-ink leading-relaxed">
+              A group of men in suits are standing in a hallway, and one of them
+              is using a weighing scale.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <p class="mt-8 text-sm text-ink-soft italic border-l-2 border-cyan pl-4 max-w-2xl">
+        Same question, two attempts. Modern VLMs <em>can</em> do situational
+        reasoning — but the difference between getting the joke and missing it
+        is exactly what we work on.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 10. Pillar 2 — Example: Counting failure                     -->
+  <!-- ============================================================ -->
+  <section class="showcase-section bg-paper-soft">
+    <div class="max-w-[1280px] mx-auto w-full">
+      <header>
+        <div class="font-display text-base lg:text-lg tracking-[0.22em] text-cyan-deep font-semibold uppercase">
+          Pillar 02 · VLM example
+        </div>
+        <h2 class="mt-3 font-display text-3xl lg:text-4xl tracking-tight font-semibold text-ink leading-tight">
+          Even simple things break.
+        </h2>
+      </header>
+
+      <div class="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-8">
+          <img
+            src="/assets/p2/finger.png"
+            alt="VLM counting failure"
+            class="w-full h-auto rounded-lg border border-line bg-paper-soft"
+          />
+        </div>
+        <div class="lg:col-span-4 space-y-4">
+          <div class="rounded-lg border-l-4 border-rose-500 bg-rose-50/60 p-5">
+            <div class="flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-rose-700 font-semibold mb-2">
+              <span class="inline-flex w-5 h-5 rounded-full bg-rose-500 text-white items-center justify-center text-xs">✗</span>
+              Failure
+            </div>
+            <p class="text-base text-ink leading-relaxed">
+              The model says <strong>5 fingers</strong> — but the emoji shows
+              <strong>4 fingers + 1 thumb</strong>. Counting and strict
+              definitions still trip up state-of-the-art VLMs.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 11. Pillar 2 — Why we need video                             -->
+  <!-- ============================================================ -->
+  <section class="showcase-section bg-paper-soft">
+    <div class="max-w-[1280px] mx-auto w-full">
+      <header>
+        <div class="font-display text-base lg:text-lg tracking-[0.22em] text-cyan-deep font-semibold uppercase">
+          Pillar 02 · Why video matters
+        </div>
+        <h2 class="mt-3 font-display text-3xl lg:text-4xl tracking-tight font-semibold text-ink leading-tight">
+          Glasses going up, or coming down?
+        </h2>
+      </header>
+
+      <div class="mt-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div class="lg:col-span-7">
+          <img
+            src="/assets/p2/eyeglasses.jpeg"
+            alt="Single frame ambiguity"
+            class="w-full h-auto rounded-lg border border-line"
+          />
+        </div>
+        <div class="lg:col-span-5 space-y-5">
+          <div class="rounded-lg bg-paper border border-line p-5">
+            <div class="text-xs uppercase tracking-[0.16em] text-ink-mute font-semibold mb-2">
+              From a single frame
+            </div>
+            <p class="text-lg font-display text-ink leading-relaxed">
+              No model — and no human — can tell.
+            </p>
+          </div>
+          <p class="text-base text-ink-soft leading-relaxed">
+            Direction of motion, intent, before-and-after — these only exist
+            <em>between</em> frames.
+          </p>
+          <p
+            class="text-sm italic text-ink-soft border-l-2 border-cyan pl-4 leading-relaxed"
+          >
+            Image understanding is not video understanding. We need temporal
+            models that reason about <em>change</em>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 10. Pillar 3 — Overview                                      -->
+  <!-- ============================================================ -->
+  <section class="showcase-section">
+    <PillarOverview
+      number="03"
+      title="3D / 4D Vision"
+      subtitle="3D scene reconstruction & rendering"
+      topics={[
+        "3D Scene Reconstruction",
+        "Neural Radiance Fields (NeRF)",
+        "3D & 4D Gaussian Splatting",
+        "Novel View Synthesis",
+        "Dynamic Scene Reconstruction",
+      ]}
+      thread="From 2D observations to 3D — and into time, when scenes move."
+    >
+      <Rendering />
+    </PillarOverview>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 11. Pillar 3 — Demo: 3D Gaussian Splatting                   -->
+  <!-- ============================================================ -->
+  <section class="showcase-section">
+    <FocusedDemo
+      number="03"
+      title="3D / 4D Vision"
+      subtitle="3D scene reconstruction & rendering"
+      label="3D Gaussian Splatting"
+      refTitle="3D Gaussian Splatting for Real-Time Radiance Field Rendering"
+      refAuthors="Kerbl et al."
+      refVenue="SIGGRAPH 2023"
+      refLink="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/"
+    >
+      <video
+        src="/assets/3dgs_garden.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        class="w-full h-auto block"></video>
+    </FocusedDemo>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 12. Pillar 3 — Demo: 4D Gaussian Splatting (Ex4DGS)          -->
+  <!-- ============================================================ -->
+  <section class="showcase-section">
+    <FocusedDemo
+      number="03"
+      title="3D / 4D Vision"
+      subtitle="3D scene reconstruction & rendering"
+      label="4D Gaussian Splatting"
+      refTitle="Fully Explicit Dynamic Gaussian Splatting (Ex4DGS)"
+      refAuthors="Lee et al."
+      refVenue="NeurIPS 2024"
+      refLink="https://leejunoh.com/Ex4DGS/"
+    >
+      <video
+        src="/assets/ex4dgs_birthday.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        class="w-full h-auto block"></video>
+    </FocusedDemo>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 13. Pillar 4 — Overview                                      -->
+  <!-- ============================================================ -->
+  <section class="showcase-section bg-paper-soft">
+    <PillarOverview
+      number="04"
+      title="World Models"
+      subtitle="Predicting — and interacting with — the visual world"
+      topics={[
+        "World Foundation Models",
+        "Interactive Video Generation",
+        "Action-Conditioned Generation",
+        "Latent Action Models",
+        "Physics-Aware Generation",
+        "Foundation Models for Embodied AI",
+      ]}
+      thread="Don't just predict the world. Act in it, and watch it respond."
+    >
+      <WorldModel />
+    </PillarOverview>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 14. Pillar 4 — Demo: Genie 3                                 -->
+  <!-- ============================================================ -->
+  <section class="showcase-section bg-paper-soft">
+    <FocusedDemo
+      number="04"
+      title="World Models"
+      subtitle="Generative simulation of the visual world"
+      label="World Simulation"
+      refTitle="Genie 3"
+      refAuthors="DeepMind"
+      refVenue="2025"
+      refLink="https://deepmind.google/discover/blog/genie-3-a-new-frontier-for-world-models/"
+    >
+      <div class="aspect-video">
+        <iframe
+          src="https://www.youtube.com/embed/PDKhUknuQDg?autoplay=0&mute=1&modestbranding=1&rel=0"
+          title="Genie 3 — DeepMind"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          class="w-full h-full"></iframe>
+      </div>
+    </FocusedDemo>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 15. Pillar 4 — Demo: DreamDojo                               -->
+  <!-- ============================================================ -->
+  <section class="showcase-section bg-paper-soft">
+    <FocusedDemo
+      number="04"
+      title="World Models"
+      subtitle="Generative simulation of the visual world"
+      label="Robot World Model"
+      refTitle="DreamDojo: A Generalist Robot World Model from Large-Scale Human Videos"
+      refAuthors="Gao et al."
+      refVenue="NVIDIA 2026"
+      refLink="https://dreamdojo-world.github.io/"
+    >
+      <video
+        src="/assets/dreamdojo.mp4?v=2"
+        autoplay
+        muted
+        loop
+        playsinline
+        class="w-full h-auto block"></video>
+    </FocusedDemo>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 16. Connecting back                                          -->
+  <!-- ============================================================ -->
+  <section class="showcase-section">
+    <div class="max-w-5xl mx-auto w-full">
+      <p
+        class="text-base lg:text-lg uppercase tracking-[0.22em] text-cyan-deep font-semibold"
+      >
+        Why one lab, four pillars
+      </p>
+      <h2
+        class="mt-8 font-display text-4xl lg:text-5xl tracking-tight font-semibold text-ink leading-[1.15] max-w-3xl"
+      >
+        Not four topics.<br />
+        <span class="text-navy">One question</span>, four scales.
+      </h2>
+
+      <div
+        class="mt-16 flex flex-wrap items-center gap-4 lg:gap-6 text-xl lg:text-2xl text-ink-soft font-display"
+      >
+        <span>pixels</span>
+        <span class="text-cyan">→</span>
+        <span>meaning</span>
+        <span class="text-cyan">→</span>
+        <span>space</span>
+        <span class="text-cyan">→</span>
+        <span class="text-ink font-semibold">future</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 17. Career paths                                             -->
+  <!-- ============================================================ -->
+  <section class="showcase-section bg-paper-soft">
+    <div class="max-w-[1280px] mx-auto w-full">
+      <p
+        class="text-base lg:text-lg uppercase tracking-[0.22em] text-cyan-deep font-semibold"
+      >
+        Where this leads
+      </p>
+      <h2
+        class="mt-4 font-display text-3xl lg:text-4xl tracking-tight font-semibold text-ink leading-tight max-w-3xl"
+      >
+        Where you can go after this.
+      </h2>
+
+      <div class="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- 해외 -->
+        <div>
+          <div class="text-xs uppercase tracking-[0.18em] text-ink-mute font-semibold mb-4">
+            Global tech
+          </div>
+          <div class="grid grid-cols-3 gap-4 items-center">
+            {
+              [
+                "google.png",
+                "meta.png",
+                "ms.png",
+                "adobe.png",
+                "disney.svg",
+              ].map((f) => (
+                <div class="aspect-square flex items-center justify-center bg-paper rounded-lg border border-line p-3">
+                  <img
+                    src={`/assets/logos/global/${f}`}
+                    alt={f}
+                    class="max-w-full max-h-full object-contain"
+                    style="filter: grayscale(100%) opacity(0.85);"
+                  />
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- 국내 -->
+        <div>
+          <div class="text-xs uppercase tracking-[0.18em] text-ink-mute font-semibold mb-4">
+            Korean industry
+          </div>
+          <div class="grid grid-cols-3 gap-4 items-center">
+            {
+              [
+                "samsung.svg",
+                "lg.webp",
+                "hyungdai.svg",
+                "naver.svg",
+                "kakao.jpeg",
+                "skt.svg",
+                "kt.png",
+                "uplus.png",
+              ].map((f) => (
+                <div class="aspect-square flex items-center justify-center bg-paper rounded-lg border border-line p-3">
+                  <img
+                    src={`/assets/logos/korea/${f}`}
+                    alt={f}
+                    class="max-w-full max-h-full object-contain"
+                    style="filter: grayscale(100%) opacity(0.85);"
+                  />
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- 정출연 -->
+        <div>
+          <div class="text-xs uppercase tracking-[0.18em] text-ink-mute font-semibold mb-4">
+            National research
+          </div>
+          <div class="grid grid-cols-3 gap-4 items-center">
+            {
+              ["etri.jpg", "kist.svg", "add.svg"].map((f) => (
+                <div class="aspect-square flex items-center justify-center bg-paper rounded-lg border border-line p-3">
+                  <img
+                    src={`/assets/logos/research/${f}`}
+                    alt={f}
+                    class="max-w-full max-h-full object-contain"
+                    style="filter: grayscale(100%) opacity(0.85);"
+                  />
+                </div>
+              ))
+            }
+          </div>
+          <p class="mt-6 text-sm text-ink-soft italic leading-relaxed">
+            … and graduate school, startups,<br />or anywhere visual AI is used.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 18. Why this field                                           -->
+  <!-- ============================================================ -->
+  <section class="showcase-section">
+    <div class="max-w-[1280px] mx-auto w-full">
+      <p
+        class="text-base lg:text-lg uppercase tracking-[0.22em] text-cyan-deep font-semibold"
+      >
+        Why this field
+      </p>
+      <h2
+        class="mt-4 font-display text-3xl lg:text-4xl tracking-tight font-semibold text-ink leading-tight max-w-3xl"
+      >
+        Three reasons it's a great field to be in.
+      </h2>
+
+      <div class="mt-14 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {
+          [
+            {
+              n: "01",
+              t: "Anywhere, anytime",
+              s: "All you need is an idea and a laptop. Research happens wherever you are.",
+            },
+            {
+              n: "02",
+              t: "Endless frontier",
+              s: "The field moves fast. New questions open up every week — there is always something to chase.",
+            },
+            {
+              n: "03",
+              t: "From idea to the world, fast",
+              s: "A paper today can be a product people use within months. Your work reaches real users — quickly.",
+            },
+          ].map((c) => (
+            <div class="rounded-lg border border-line bg-paper-soft p-7">
+              <div class="font-display text-sm tracking-[0.22em] text-cyan-deep font-semibold uppercase">
+                {c.n}
+              </div>
+              <div class="mt-3 font-display text-2xl font-semibold text-ink leading-tight">
+                {c.t}
+              </div>
+              <p class="mt-4 text-base text-ink-soft leading-relaxed">
+                {c.s}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- 19. Closing                                                  -->
+  <!-- ============================================================ -->
+  <section
+    class="showcase-section bg-gradient-to-br from-navy to-navy-deep text-paper"
+  >
+    <div class="max-w-[1100px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+      <div class="lg:col-span-7">
+        <p
+          class="text-base lg:text-lg uppercase tracking-[0.22em] text-cyan-soft font-semibold"
+        >
+          ViViD Lab
+        </p>
+        <h2
+          class="mt-8 font-display text-5xl lg:text-6xl tracking-tight font-semibold leading-tight"
+        >
+          Come talk to us.
+        </h2>
+        <p class="mt-6 text-lg lg:text-xl text-paper/85 leading-relaxed">
+          Research, course questions, or just curious — drop by anytime.
+        </p>
+
+        <div class="mt-12 space-y-3 text-paper">
+          <p class="text-xl lg:text-2xl">
+            <a
+              href="mailto:hyeongmin.lee@seoultech.ac.kr"
+              class="hover:text-cyan-soft underline underline-offset-4 decoration-paper/40"
+            >
+              hyeongmin.lee@seoultech.ac.kr
+            </a>
+          </p>
+          <p class="text-xl lg:text-2xl">
+            <a
+              href="https://lab-vivid.github.io"
+              target="_blank"
+              rel="noopener"
+              class="hover:text-cyan-soft underline underline-offset-4 decoration-paper/40"
+            >
+              lab-vivid.github.io
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5 flex flex-col items-center">
+        <div class="bg-paper rounded-xl p-4">
+          <img
+            src="/assets/qr.png"
+            alt="QR code to lab page"
+            class="w-56 h-56 lg:w-64 lg:h-64 object-contain"
+          />
+        </div>
+        <p class="mt-4 text-sm uppercase tracking-[0.18em] text-paper/70 font-semibold">
+          Scan
+        </p>
+      </div>
+    </div>
+  </section>
+</Showcase>

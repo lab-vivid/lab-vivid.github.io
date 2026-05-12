@@ -1,0 +1,53 @@
+---
+interface Props {
+  label: string;
+  refTitle?: string;
+  refAuthors?: string;
+  refVenue?: string;
+  refLink?: string;
+}
+const { label, refTitle, refAuthors, refVenue, refLink } = Astro.props;
+---
+
+<div class="flex flex-col h-full">
+  <div
+    class="text-sm uppercase tracking-[0.16em] text-ink font-semibold mb-3"
+  >
+    {label}
+  </div>
+  <div
+    class="flex-1 rounded-lg overflow-hidden bg-paper-soft border border-line flex items-center justify-center min-h-[220px]"
+  >
+    <slot>
+      <div
+        class="text-sm text-ink-mute italic px-4 py-12 text-center select-none"
+      >
+        [ asset placeholder ]
+      </div>
+    </slot>
+  </div>
+  {
+    refTitle && (
+      <p class="mt-3 text-sm text-ink-soft leading-snug">
+        {refLink ? (
+          <a
+            href={refLink}
+            target="_blank"
+            rel="noopener"
+            class="hover:text-navy underline-offset-2 hover:underline"
+          >
+            {refTitle}
+          </a>
+        ) : (
+          <span>{refTitle}</span>
+        )}
+        {refAuthors && <span class="text-ink-soft"> · {refAuthors}</span>}
+        {refVenue && (
+          <span class="ml-2 inline-block px-2 py-0.5 rounded text-xs uppercase tracking-wider bg-navy-soft text-navy font-semibold">
+            {refVenue}
+          </span>
+        )}
+      </p>
+    )
+  }
+</div>

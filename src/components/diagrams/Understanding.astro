@@ -1,0 +1,94 @@
+---
+// Pillar 2 — video → network → meaning (text)
+// Pass `frameSrc` to swap the decorative frame stack for a real sample frame.
+
+interface Props {
+  frameSrc?: string;
+  /** Two short lines for the speech bubble. */
+  captionLines?: [string, string];
+}
+const {
+  frameSrc,
+  captionLines = ['"A man is', 'cooking pasta."'],
+} = Astro.props;
+---
+
+<svg
+  viewBox="0 0 600 280"
+  class="w-full h-auto"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <marker id="arrow-u" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#0a0e1a" />
+    </marker>
+    <clipPath id="und-frame-clip">
+      <rect x="56" y="84" width="100" height="70" rx="4" />
+    </clipPath>
+    <filter id="und-muted">
+      <feColorMatrix type="saturate" values="0.2" />
+    </filter>
+  </defs>
+
+  <!-- Stack of video frames -->
+  <g>
+    <rect x="40" y="100" width="100" height="70" rx="4" fill="#e8eef9" stroke="#0d47a1" stroke-width="1" />
+    <rect x="48" y="92" width="100" height="70" rx="4" fill="#e8eef9" stroke="#0d47a1" stroke-width="1" />
+    {
+      frameSrc ? (
+        <image
+          href={frameSrc}
+          x="56"
+          y="84"
+          width="100"
+          height="70"
+          preserveAspectRatio="xMidYMid slice"
+          clip-path="url(#und-frame-clip)"
+          filter="url(#und-muted)"
+          opacity="0.75"
+        />
+      ) : (
+        <>
+          <rect x="56" y="84" width="100" height="70" rx="4" fill="#e8eef9" stroke="#0d47a1" stroke-width="1.5" />
+          <circle cx="106" cy="105" r="6" fill="#0d47a1" />
+          <rect x="100" y="113" width="12" height="22" rx="3" fill="#0d47a1" />
+        </>
+      )
+    }
+    <rect x="56" y="84" width="100" height="70" rx="4" fill="none" stroke="#0d47a1" stroke-width="1.5" />
+    <text x="100" y="200" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#475569">Video frames</text>
+  </g>
+
+  <!-- Arrow into VLM -->
+  <line x1="180" y1="120" x2="220" y2="120" stroke="#0a0e1a" stroke-width="2" marker-end="url(#arrow-u)" />
+
+  <!-- Vision-Language Model box -->
+  <rect x="225" y="80" width="130" height="80" rx="10" fill="#ffffff" stroke="#0d47a1" stroke-width="2" />
+  <text x="290" y="115" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#0d47a1">Vision–Language</text>
+  <text x="290" y="138" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#0d47a1">Model</text>
+
+  <!-- Arrow out of VLM (stops just before bubble tail) -->
+  <line x1="370" y1="120" x2="395" y2="120" stroke="#0a0e1a" stroke-width="2" marker-end="url(#arrow-u)" />
+
+  <!-- Speech bubble (wider, with left-pointing tail) -->
+  <g>
+    <path
+      d="M420,85
+         Q410,85 410,95
+         L410,110
+         L398,118
+         L410,126
+         L410,145
+         Q410,155 420,155
+         L580,155
+         Q590,155 590,145
+         L590,95
+         Q590,85 580,85
+         Z"
+      fill="#06b6d4" fill-opacity="0.1" stroke="#0891b2" stroke-width="1.5"
+    />
+    <text x="500" y="115" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#0a0e1a">{captionLines[0]}</text>
+    <text x="500" y="138" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#0a0e1a">{captionLines[1]}</text>
+  </g>
+  <text x="500" y="200" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#475569">Meaning · in words</text>
+</svg>

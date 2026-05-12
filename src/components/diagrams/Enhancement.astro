@@ -1,0 +1,111 @@
+---
+// Pillar 1 — image enhancement: bad image → network → better image
+// Pass `inputSrc` / `outputSrc` to swap the decorative blocks for real samples.
+
+interface Props {
+  inputSrc?: string;
+  outputSrc?: string;
+}
+const { inputSrc, outputSrc } = Astro.props;
+---
+
+<svg
+  viewBox="0 0 600 220"
+  class="w-full h-auto"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <pattern id="noise-bad" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="6" fill="#cbd5e1" />
+      <rect x="0" y="0" width="3" height="3" fill="#94a3b8" />
+      <rect x="3" y="3" width="3" height="3" fill="#94a3b8" />
+    </pattern>
+    <linearGradient id="good-img" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#0d47a1" />
+    </linearGradient>
+    <clipPath id="enh-input-clip">
+      <rect x="20" y="60" width="140" height="100" rx="6" />
+    </clipPath>
+    <clipPath id="enh-output-clip">
+      <rect x="440" y="60" width="140" height="100" rx="6" />
+    </clipPath>
+    <filter id="enh-muted">
+      <feColorMatrix type="saturate" values="0.2" />
+    </filter>
+    <marker id="arrow-e" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#0a0e1a" />
+    </marker>
+  </defs>
+
+  <!-- Input image -->
+  {
+    inputSrc ? (
+      <image
+        href={inputSrc}
+        x="20"
+        y="60"
+        width="140"
+        height="100"
+        preserveAspectRatio="xMidYMid slice"
+        clip-path="url(#enh-input-clip)"
+        filter="url(#enh-muted)"
+        opacity="0.65"
+      />
+    ) : (
+      <rect
+        x="20"
+        y="60"
+        width="140"
+        height="100"
+        rx="6"
+        fill="url(#noise-bad)"
+        stroke="#94a3b8"
+        stroke-width="1.5"
+      />
+    )
+  }
+  <rect x="20" y="60" width="140" height="100" rx="6" fill="none" stroke="#94a3b8" stroke-width="1.5" />
+  <text x="90" y="190" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#475569">Low quality</text>
+
+  <!-- Arrow -->
+  <line x1="175" y1="110" x2="225" y2="110" stroke="#0a0e1a" stroke-width="2" marker-end="url(#arrow-e)" />
+
+  <!-- Network box -->
+  <rect x="230" y="65" width="140" height="90" rx="10" fill="#ffffff" stroke="#0d47a1" stroke-width="2" />
+  <text x="300" y="105" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#0d47a1">Neural Network</text>
+  <text x="300" y="128" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#475569">trained on data</text>
+
+  <!-- Arrow -->
+  <line x1="385" y1="110" x2="435" y2="110" stroke="#0a0e1a" stroke-width="2" marker-end="url(#arrow-e)" />
+
+  <!-- Output image -->
+  {
+    outputSrc ? (
+      <image
+        href={outputSrc}
+        x="440"
+        y="60"
+        width="140"
+        height="100"
+        preserveAspectRatio="xMidYMid slice"
+        clip-path="url(#enh-output-clip)"
+        filter="url(#enh-muted)"
+        opacity="0.85"
+      />
+    ) : (
+      <rect
+        x="440"
+        y="60"
+        width="140"
+        height="100"
+        rx="6"
+        fill="url(#good-img)"
+        stroke="#0d47a1"
+        stroke-width="1.5"
+      />
+    )
+  }
+  <rect x="440" y="60" width="140" height="100" rx="6" fill="none" stroke="#0d47a1" stroke-width="1.5" />
+  <text x="510" y="190" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#475569">Sharp · Clean</text>
+</svg>
