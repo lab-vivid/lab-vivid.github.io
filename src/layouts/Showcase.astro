@@ -21,6 +21,14 @@ const { title = "ViViD Lab — Research Showcase" } = Astro.props;
       <slot />
     </div>
 
+    <!-- Back to lab home (top-left) -->
+    <a
+      href="/"
+      class="fixed top-5 left-6 text-[11px] tracking-[0.18em] uppercase text-ink-mute hover:text-navy font-semibold select-none z-50 transition-colors"
+    >
+      ← ViViD Lab
+    </a>
+
     <!-- Section indicator (top-right) -->
     <div
       id="indicator"

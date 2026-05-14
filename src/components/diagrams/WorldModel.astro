@@ -138,8 +138,10 @@ const futures = futureSrcs ?? [undefined, undefined, undefined];
   <line x1="475" y1="180" x2="475" y2="230" stroke="#0a0e1a" stroke-width="2" marker-end="url(#arrow-w)" />
 
   <!-- ===== Closed-loop arrow: Robot → Interaction (next action) ===== -->
+  <!-- Curves up from below and stops just under the Interaction labels so it
+       points at the box without crossing the text. -->
   <path
-    d="M 350,275 C 240,275 155,210 155,128"
+    d="M 350,275 C 240,275 155,240 155,170"
     fill="none"
     stroke="#0891b2"
     stroke-width="2"
@@ -148,8 +150,9 @@ const futures = futureSrcs ?? [undefined, undefined, undefined];
     marker-end="url(#arrow-w-cyan)"
   />
   <text
-    x="240"
-    y="240"
+    x="255"
+    y="205"
+    text-anchor="middle"
     font-family="Inter, sans-serif"
     font-size="11"
     font-style="italic"
