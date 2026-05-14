@@ -6,6 +6,11 @@ export type NewsItem = {
 
 export const news: NewsItem[] = [
   {
+    date: "2026-05-04",
+    category: "Paper",
+    text: "Probing Intrinsic Bias: Internal Attention Feature Analysis for Social Bias Evaluation in Diffusion Models accepted to Neurocomputing.",
+  },
+  {
     date: "2026-03-01",
     category: "Lab",
     text: "ViViD Lab officially launches at SeoulTech. Welcome!",

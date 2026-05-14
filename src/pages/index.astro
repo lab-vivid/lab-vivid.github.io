@@ -2,6 +2,11 @@
 import Base from "../layouts/Base.astro";
 import Hero from "../components/Hero.astro";
 import NewsList from "../components/NewsList.astro";
+import { news } from "../data/news";
+
+const recentNews = [...news]
+  .sort((a, b) => b.date.localeCompare(a.date))
+  .slice(0, 10);
 ---
 
 <Base>
@@ -20,6 +25,6 @@ import NewsList from "../components/NewsList.astro";
         >All news →</a
       >
     </div>
-    <NewsList />
+    <NewsList items={recentNews} />
   </section>
 </Base>
