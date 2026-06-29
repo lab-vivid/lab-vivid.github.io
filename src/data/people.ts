@@ -31,9 +31,16 @@ export const students: Member[] = [
     name: "Donggeun Ko",
     // Incoming part-time Ph.D. joining 2027; currently at aimfuture and collaborating.
     role: "Incoming Ph.D. Student · 2027",
+    photo: "donggeun.jpg",
     // email omitted: company (aimfuture) address not used here, institutional pending;
-    // Website already covers contact.
-    links: [{ label: "Website", href: "https://seanko29.github.io/" }],
+    // Website and Google Scholar cover contact.
+    links: [
+      {
+        label: "Google Scholar",
+        href: "https://scholar.google.com/citations?user=SrYKBGQAAAAJ&hl=en",
+      },
+      { label: "Website", href: "https://seanko29.github.io/" },
+    ],
     nameConfirmed: true,
   },
   {
