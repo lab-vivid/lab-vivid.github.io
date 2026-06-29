@@ -3,30 +3,30 @@ export type MemberLink = {
   href: string;
 };
 
-export type Student = {
+export type Member = {
   /** English name, given-name-first (e.g. "Donggeun Ko"). */
   name: string;
-  /** Degree status, e.g. "Ph.D. Student" / "Undergraduate Researcher". */
+  /** Role/status, e.g. "Ph.D. Student" / "Undergraduate Researcher" / "Collaborating Researcher". */
   role: string;
   /** Filename under src/assets/people/. Omit when no photo yet — a placeholder is rendered. */
   photo?: string;
   email?: string;
-  /** External profiles (homepage, GitHub, Google Scholar...). Only include what exists. */
+  /** External profiles (homepage, GitHub, Google Scholar, LinkedIn...). Only include what exists. */
   links?: MemberLink[];
   /**
    * Reserved for a future single research-keyword chip tied to the four pillars,
-   * once each student's focus is settled. Intentionally unused in v1.
+   * once each member's focus is settled. Intentionally unused in v1.
    */
   focus?: string;
   /**
-   * false = romanized placeholder pending the student's confirmed English spelling
+   * false = romanized placeholder pending the member's confirmed English spelling
    * (collected at first launch). Used only as an internal reminder, not rendered.
    */
   nameConfirmed?: boolean;
 };
 
 /** Ordered by seniority: Ph.D. first, then undergraduate researchers. */
-export const students: Student[] = [
+export const students: Member[] = [
   {
     name: "Donggeun Ko",
     // Incoming part-time Ph.D. joining 2027; currently at aimfuture and collaborating.
@@ -55,5 +55,21 @@ export const students: Student[] = [
     photo: "yunjae.jpg",
     email: "fnsckdl@seoultech.ac.kr",
     nameConfirmed: false,
+  },
+];
+
+/** External collaborators (not lab members). */
+export const collaborators: Member[] = [
+  {
+    name: "Yunsung Lee",
+    // External collaborator (Head of Research at Maum AI); ongoing paper collaboration.
+    // Personal Gmail used by request — no institutional address as he is external.
+    role: "Collaborating Researcher",
+    email: "dldbstjd9751@gmail.com",
+    links: [
+      { label: "GitHub", href: "https://github.com/alohays" },
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/yunsung-lee-23a926150/" },
+    ],
+    nameConfirmed: true,
   },
 ];

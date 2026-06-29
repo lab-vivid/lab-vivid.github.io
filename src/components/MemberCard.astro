@@ -1,0 +1,75 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  photo?: ImageMetadata;
+  name: string;
+  role: string;
+  email?: string;
+  links?: { label: string; href: string }[];
+}
+
+const { photo, name, role, email, links } = Astro.props;
+const linkClass =
+  "inline-flex items-center gap-0.5 text-cyan-deep underline underline-offset-4 decoration-cyan-deep/40 hover:decoration-cyan-deep hover:text-cyan transition-colors";
+---
+
+<li class="rounded-2xl border border-line overflow-hidden bg-paper">
+  {
+    photo ? (
+      <Image
+        src={photo}
+        alt={name}
+        width={420}
+        class="w-full aspect-square object-cover object-top"
+      />
+    ) : (
+      <div class="w-full aspect-square bg-paper-soft border-b border-line flex items-center justify-center text-ink-mute">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          class="w-12 h-12"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="8.5" r="4" />
+          <path d="M4 20c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5" stroke-linecap="round" />
+        </svg>
+      </div>
+    )
+  }
+  <div class="p-4">
+    <h3
+      class="font-display text-[15px] font-semibold text-ink leading-tight"
+    >
+      {name}
+    </h3>
+    <p class="mt-0.5 text-xs text-ink-soft">{role}</p>
+    {
+      (email || links?.length) && (
+        <ul class="mt-2.5 space-y-1 text-xs">
+          {email && (
+            <li>
+              <a
+                href={`mailto:${email}`}
+                class="break-all text-cyan-deep underline underline-offset-4 decoration-cyan-deep/40 hover:decoration-cyan-deep hover:text-cyan transition-colors"
+              >
+                {email}
+              </a>
+            </li>
+          )}
+          {links?.map((l) => (
+            <li>
+              <a href={l.href} class={linkClass}>
+                {l.label}
+                <span aria-hidden="true">↗</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</li>
