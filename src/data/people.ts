@@ -61,7 +61,9 @@ export const students: Member[] = [
     role: "Undergraduate Researcher",
     photo: "yunjae.jpg",
     email: "fnsckdl@seoultech.ac.kr",
-    nameConfirmed: false,
+    // Confirmed by the student (given as "Jeong YunJae", family-first); displayed
+    // given-name-first to match the other cards.
+    nameConfirmed: true,
   },
 ];
 
@@ -69,9 +71,11 @@ export const students: Member[] = [
 export const collaborators: Member[] = [
   {
     name: "Yunsung Lee",
-    // External collaborator (Head of Research at Maum AI); ongoing paper collaboration.
+    // External collaborator; ongoing paper collaboration. Role shows his current
+    // industry title; the "Collaborators" section conveys the lab relationship.
     // Personal Gmail used by request — no institutional address as he is external.
-    role: "Collaborating Researcher",
+    role: "Head of Research, WoRV @ Maum AI",
+    photo: "yunsung.png",
     email: "dldbstjd9751@gmail.com",
     links: [
       { label: "GitHub", href: "https://github.com/alohays" },
