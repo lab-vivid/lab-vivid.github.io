@@ -71,10 +71,10 @@ export const students: Member[] = [
 export const collaborators: Member[] = [
   {
     name: "Yunsung Lee",
-    // External collaborator; ongoing paper collaboration. Role shows his current
-    // industry title; the "Collaborators" section conveys the lab relationship.
+    // External research collaborator; ongoing paper collaboration. Company title
+    // removed at the user's request; labeled with the user's preferred wording.
     // Personal Gmail used by request — no institutional address as he is external.
-    role: "Head of Research, WoRV @ Maum AI",
+    role: "Cooperative Research Fellow",
     photo: "yunsung.png",
     email: "dldbstjd9751@gmail.com",
     links: [
