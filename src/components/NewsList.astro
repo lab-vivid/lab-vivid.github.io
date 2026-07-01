@@ -38,11 +38,11 @@ const categoryClass = (c: NewsItem["category"]) => {
         <ul class="divide-y divide-line">
           {grouped[y].map((item) => (
             <li class="py-3.5 flex flex-col sm:flex-row sm:items-baseline gap-1.5 sm:gap-4">
-              <time class="text-xs text-ink-mute tabular-nums whitespace-nowrap font-mono w-20">
+              <time class="text-xs text-ink-mute tabular-nums whitespace-nowrap font-mono w-20 shrink-0">
                 {item.date}
               </time>
               <span
-                class={`text-[10px] uppercase tracking-wider px-2 py-0.5 rounded font-semibold whitespace-nowrap self-start ${categoryClass(item.category)}`}
+                class={`text-[10px] uppercase tracking-wider px-2 py-0.5 rounded font-semibold whitespace-nowrap self-start shrink-0 ${categoryClass(item.category)}`}
               >
                 {item.category}
               </span>
