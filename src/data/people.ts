@@ -53,8 +53,10 @@ export const students: Member[] = [
   {
     name: "Hyeonseong Park",
     role: "Undergraduate Researcher",
-    // email omitted: institutional (@seoultech.ac.kr) address pending; personal Gmail not published.
-    nameConfirmed: false,
+    photo: "hyeonseong.jpg",
+    email: "phs0916@seoultech.ac.kr",
+    // Passport reads "PARK HYEONSEONG"; displayed given-name-first to match the other cards.
+    nameConfirmed: true,
   },
   {
     name: "Yunjae Jeong",
@@ -63,6 +65,15 @@ export const students: Member[] = [
     email: "fnsckdl@seoultech.ac.kr",
     // Confirmed by the student (given as "Jeong YunJae", family-first); displayed
     // given-name-first to match the other cards.
+    nameConfirmed: true,
+  },
+  {
+    name: "Junu Kim",
+    role: "Undergraduate Researcher",
+    photo: "junu.jpg",
+    email: "sugw71@seoultech.ac.kr",
+    // Personal site given by the user; GitHub/Scholar not yet published on it.
+    links: [{ label: "Website", href: "https://melonchicken.github.io/" }],
     nameConfirmed: true,
   },
 ];
