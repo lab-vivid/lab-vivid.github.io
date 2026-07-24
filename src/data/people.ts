@@ -39,7 +39,9 @@ export const students: Member[] = [
         label: "Google Scholar",
         href: "https://scholar.google.com/citations?user=SrYKBGQAAAAJ&hl=en",
       },
-      { label: "Website", href: "https://seanko29.github.io/" },
+      { label: "GitHub", href: "https://github.com/seanko29" },
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/donggeun-sean-ko-b78b57186/" },
+      { label: "Homepage", href: "https://seanko29.github.io/" },
     ],
     nameConfirmed: true,
   },
@@ -72,8 +74,11 @@ export const students: Member[] = [
     role: "Undergraduate Researcher",
     photo: "junu.jpg",
     email: "sugw71@seoultech.ac.kr",
-    // Personal site given by the user; GitHub/Scholar not yet published on it.
-    links: [{ label: "Website", href: "https://melonchicken.github.io/" }],
+    links: [
+      { label: "GitHub", href: "https://github.com/MelonChicken" },
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/junu-kim-076481344/" },
+      { label: "Homepage", href: "https://melonchicken.github.io/" },
+    ],
     nameConfirmed: true,
   },
 ];
