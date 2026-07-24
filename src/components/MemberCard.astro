@@ -40,11 +40,16 @@ const kindFor = (label: string): IconKind => {
 };
 
 // Email stays as a readable address; external profiles render as an icon row.
-const iconLinks = (links ?? []).map((l) => ({
+// Homepage, when present, leads the row; the rest keep their given order.
+const mappedLinks = (links ?? []).map((l) => ({
   kind: kindFor(l.label),
   label: l.label,
   href: l.href,
 }));
+const iconLinks = [
+  ...mappedLinks.filter((l) => l.kind === "homepage"),
+  ...mappedLinks.filter((l) => l.kind !== "homepage"),
+];
 ---
 
 <li class="rounded-2xl border border-line overflow-hidden bg-paper">
